@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Aseguradora extends Model
 {
     use HasFactory;
+    protected $fillable = ['nombre'];
 }

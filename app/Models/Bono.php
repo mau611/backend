@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Bono extends Model
 {
     use HasFactory;
+    protected $fillable = ['nombre', 'sesiones', 'precio', 'restantes', 'paciente_id'];
 }

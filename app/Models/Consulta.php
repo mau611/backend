@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Consulta extends Model
 {
     use HasFactory;
+    protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id'];
 }

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Profesional extends Model
 {
     use HasFactory;
+    protected $fillable = ['nombre'];
+
 }

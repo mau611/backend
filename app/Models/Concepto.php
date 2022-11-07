@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Concepto extends Model
 {
     use HasFactory;
+    protected $fillable = ['nombre', 'cantidad', 'precio', 'subtotal', 'factura_id'];
 }

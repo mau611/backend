@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Almacen extends Model
 {
     use HasFactory;
+    protected $fillable = ['nombre', 'descripcion', 'precioCompra', 'fechaIngreso', 'existencias'];
 }

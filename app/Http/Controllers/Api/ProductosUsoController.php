@@ -3,62 +3,46 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductosUso;
 use Illuminate\Http\Request;
 
 class ProductosUsoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $productosUso = ProductosUso::all();
+        return $productosUso;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $productoUso = new ProductosUso();
+        $productoUso->productos_uso = $request->productos_uso;
+        $productoUso->fecha_ingreso = $request->fecha_ingreso;
+        $productoUso->existencias = $request->existencias;
+        $productoUso->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $productoUso = ProductosUso::find($id);
+        return $productoUso;
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $productoUso = ProductosUso::findOrFail($request->id);
+        $productoUso->productos_uso = $request->productos_uso;
+        $productoUso->fecha_ingreso = $request->fecha_ingreso;
+        $productoUso->existencias = $request->existencias;
+        $productoUso->save();
+        return $productoUso;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $productoUso = ProductosUso::destroy($id);
+        return $productoUso;
     }
 }

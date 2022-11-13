@@ -3,62 +3,44 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\TipoConsulta;
 use Illuminate\Http\Request;
 
 class TipoConsultaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $tipoConsulta = TipoConsulta::all();
+        return $tipoConsulta;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $tipoConsulta = new TipoConsulta();
+        $tipoConsulta->nombre = $request->nombre;
+        $tipoConsulta->color = $request->color;
+        $tipoConsulta->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $tipoConsulta = TipoConsulta::find($id);
+        return $tipoConsulta;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $tipoConsulta = TipoConsulta::findOrFail($id);
+        $tipoConsulta->nombre = $request->nombre;
+        $tipoConsulta->color = $request->color;
+        $tipoConsulta->save();
+        return $tipoConsulta;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $tipoConsulta = TipoConsulta::destroy($id);
+        return $tipoConsulta;
+
     }
 }

@@ -3,62 +3,57 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Paciente;
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $pacientes = Paciente::all();
+        return $pacientes;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $paciente = new Paciente();
+        $paciente->nombres = $request->nombres;
+        $paciente->apellidos = $request->apellidos;
+        $paciente->telefono = $request->telefono;
+        $paciente->fecha_nacimiento = $request->fecha_nacimiento;
+        $paciente->ci = $request->ci;
+        $paciente->sexo = $request->sexo;
+        $paciente->direccion = $request->direccion;
+        $paciente->fecha_registro = $request->fecha_registro;
+        $paciente->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $paciente = Paciente::find($id);
+        return $paciente;
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $paciente = Paciente::FindOrFail($request->id);
+        $paciente->nombres = $request->nombres;
+        $paciente->apellidos = $request->apellidos;
+        $paciente->telefono = $request->telefono;
+        $paciente->fecha_nacimiento = $request->fecha_nacimiento;
+        $paciente->ci = $request->ci;
+        $paciente->sexo = $request->sexo;
+        $paciente->direccion = $request->direccion;
+        $paciente->fecha_registro = $request->fecha_registro;
+        $paciente->save();
+        return $paciente;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $paciente = Paciente::destroy($id);
+        return $paciente;
+
     }
 }

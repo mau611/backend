@@ -3,62 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\DocumentoConsulta;
 use Illuminate\Http\Request;
 
 class DocumentoConsultasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $documentosConsultas = DocumentoConsulta::all();
+        return $documentosConsultas;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $documentoConsulta = new DocumentoConsulta();
+        $documentoConsulta->nombre = $request->nombre;
+        $documentoConsulta->consulta_id = $request->consulta_id;
+        $documentoConsulta->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $documentoConsulta = DocumentoConsulta::find($id);
+        return $documentoConsulta;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $documentoConsulta = DocumentoConsulta::findOrFail($request->id);
+        $documentoConsulta->nombre = $request->nombre;
+        $documentoConsulta->consulta_id = $request->consulta_id;
+        $documentoConsulta->save();
+        return $documentoConsulta;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $documentoConsulta = DocumentoConsulta::destroy($id);
     }
 }

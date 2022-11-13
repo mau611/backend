@@ -3,62 +3,43 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Historial;
 use Illuminate\Http\Request;
 
 class HistorialController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+{   
     public function index()
     {
-        //
+        $historias = Historial::all();
+        return $historias;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $historia = new Historial();
+        $historia->nombre = $request->nombre;        
+        $historia->consulta_id = $request->consulta_id;  
+        $historia->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $historia = Historial::find($id);
+        return $historia;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $historia = Historial::findOrFail();
+        $historia->nombre = $request->nombre;        
+        $historia->consulta_id = $request->consulta_id;  
+        $historia->save();
+        return $historia;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $historia = Historial::destroy($id);
+        return $historia;
     }
 }

@@ -3,62 +3,45 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Medico;
 use Illuminate\Http\Request;
 
 class MedicoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $medicos = Medico::all();
+        return $medicos;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $medico = new Medico();
+        $medico->nombre = $request->nombre;
+        $medico->telefono = $request->telefono;
+        $medico->Direccion = $request->Direccion;
+        $medico->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $medico = Medico::find($id);
+        return $medico;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $medico = Medico::findOrFail();
+        $medico->nombre = $request->nombre;
+        $medico->telefono = $request->telefono;
+        $medico->Direccion = $request->Direccion;
+        $medico->save();
+        return $medico;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $medico = Medico::destroy($id);
+        return $medico;
     }
 }

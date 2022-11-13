@@ -3,62 +3,51 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bono;
 use Illuminate\Http\Request;
 
 class BonosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $bonos = Bono::all();
+        return $bonos;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $bono = new Bono();
+        $bono->nombre = $request->nombre;
+        $bono->sesiones = $request->sesiones;
+        $bono->precio = $request->precio;
+        $bono->restantes = $request->restantes;
+        $bono->paciente_id = $request->paciente_id;
+
+        $bono->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $bono = Bono::find($id);
+        return $bono;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $bono = Bono::findOrFail($request->$id);
+        $bono->nombre = $request->nombre;
+        $bono->sesiones = $request->sesiones;
+        $bono->precio = $request->precio;
+        $bono->restantes = $request->restantes;
+        $bono->paciente_id = $request->paciente_id;
+
+        $bono->save();
+        return $bono;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $bono = Bono::destroy($id);
+        return $bono;
     }
 }

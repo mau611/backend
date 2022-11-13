@@ -3,62 +3,53 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Factura;
 use Illuminate\Http\Request;
 
 class FacturaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $facturas = Factura::all();
+        return $facturas;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $factura = new Factura();
+        $factura->fecha = $request->fecha;
+        $factura->numero = $request->numero;
+        $factura->total = $request->total;
+        $factura->estado_pago = $request->estado_pago;
+        $factura->forma_pago = $request->forma_pago;
+        $factura->detalles_pago = $request->detalles_pago;
+        $factura->consulta_id = $request->consulta_id;
+        $factura->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $factura = Factura::find($id);
+        return $factura;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $factura = Factura::findOrFail($request->id);
+        $factura->fecha = $request->fecha;
+        $factura->numero = $request->numero;
+        $factura->total = $request->total;
+        $factura->estado_pago = $request->estado_pago;
+        $factura->forma_pago = $request->forma_pago;
+        $factura->detalles_pago = $request->detalles_pago;
+        $factura->consulta_id = $request->consulta_id;
+        $factura->save();
+        return $factura;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $factura = Factura::destroy($id);
+        return $factura;
     }
 }

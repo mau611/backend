@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AseguradoraController;
 use App\Http\Controllers\Api\BonosController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConsultaController;
+use App\Http\Controllers\Api\ConsultorioController;
 use App\Http\Controllers\Api\FacturaController;
 use App\Http\Controllers\Api\GastoController;
 use App\Http\Controllers\Api\HistorialController;
@@ -31,6 +32,7 @@ Route::controller(AlmacenController::class)->group(function(){
     Route::post('/inventario','store');
     Route::get('/inventario/{id}','show');
     Route::put('/inventario/{id}','update');
+    Route::put('/inventarioDescontar/{id}','descontar');
     Route::delete('/inventario/{id}','destroy');
 });
 
@@ -64,6 +66,14 @@ Route::controller(ConsultaController::class)->group(function(){
     Route::get('/consulta/{id}','show');
     Route::put('/consulta/{id}','update');
     Route::delete('/consulta/{id}','destroy');
+});
+
+Route::controller(ConsultorioController::class)->group(function(){
+    Route::get('/consultorios','index');
+    Route::post('/consultorio','store');
+    Route::get('/consultorio/{id}','show');
+    Route::put('/consultorio/{id}','update');
+    Route::delete('/consultorio/{id}','destroy');
 });
 
 Route::controller(DocumentoConsulta::class)->group(function(){

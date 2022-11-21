@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string("tratamiento");
             $table->unsignedBigInteger("paciente_id");
             $table->unsignedBigInteger("tipo_consulta_id");
+            $table->unsignedBigInteger("consultorio_id");
             $table->foreign("paciente_id")->references("id")->on("pacientes")->onDelete("cascade");
             $table->foreign("tipo_consulta_id")->references("id")->on("tipo_consultas")->onDelete("cascade");
+            $table->foreign("consultorio_id")->references("id")->on("consultorios")->onDelete("cascade");
             $table->timestamps();
         });
     }

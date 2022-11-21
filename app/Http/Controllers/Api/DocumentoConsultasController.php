@@ -40,5 +40,6 @@ class DocumentoConsultasController extends Controller
     public function destroy($id)
     {
         $documentoConsulta = DocumentoConsulta::destroy($id);
+        return $documentoConsulta; 
     }
 }

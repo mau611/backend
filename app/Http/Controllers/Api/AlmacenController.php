@@ -46,6 +46,15 @@ class AlmacenController extends Controller
         return $producto;
     }
 
+    public function descontar(Request $request){
+        $producto = Almacen::findOrFail($request->id);
+        if($producto->existencias >0){
+            $producto->existencias = $producto->existencias - 1;
+        }
+        $producto->save();
+        return $producto;
+    }
+
     public function destroy($id)
     {
         $producto = Almacen::destroy($id);

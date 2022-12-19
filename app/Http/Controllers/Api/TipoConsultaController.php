@@ -10,8 +10,8 @@ class TipoConsultaController extends Controller
 {
     public function index()
     {
-        $tipoConsulta = TipoConsulta::all();
-        return $tipoConsulta;
+        $tipoConsultas = TipoConsulta::all();
+        return $tipoConsultas;
     }
 
     public function store(Request $request)

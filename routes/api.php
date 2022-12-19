@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BonosController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConsultaController;
 use App\Http\Controllers\Api\ConsultorioController;
+use App\Http\Controllers\Api\EstadoCitaController;
 use App\Http\Controllers\Api\FacturaController;
 use App\Http\Controllers\Api\GastoController;
 use App\Http\Controllers\Api\HistorialController;
@@ -14,10 +15,10 @@ use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\ProductosUsoController;
 use App\Http\Controllers\Api\ProfesionalController;
+use App\Http\Controllers\Api\ProveedorController;
+use App\Http\Controllers\Api\TipoConsultaController;
 use App\Http\Controllers\Api\VentaController;
 use App\Models\DocumentoConsulta;
-use App\Models\Proveedor;
-use App\Models\TipoConsulta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -148,7 +149,7 @@ Route::controller(ProfesionalController::class)->group(function(){
     Route::delete('/profesional/{id}','destroy');
 });
 
-Route::controller(Proveedor::class)->group(function(){
+Route::controller(ProveedorController::class)->group(function(){
     Route::get('/proveedores','index');
     Route::post('/proveedor','store');
     Route::get('/proveedor/{id}','show');
@@ -156,12 +157,12 @@ Route::controller(Proveedor::class)->group(function(){
     Route::delete('/proveedor/{id}','destroy');
 });
 
-Route::controller(TipoConsulta::class)->group(function(){
-    Route::get('/consultas','index');
-    Route::post('/consulta','store');
-    Route::get('/consulta/{id}','show');
-    Route::put('/consulta/{id}','update');
-    Route::delete('/consulta/{id}','destroy');
+Route::controller(TipoConsultaController::class)->group(function(){
+    Route::get('/tipoConsultas','index');
+    Route::post('/tipoConsulta','store');
+    Route::get('/tipoConsulta/{id}','show');
+    Route::put('/tipoConsulta/{id}','update');
+    Route::delete('/tipoConsulta/{id}','destroy');
 });
 
 Route::controller(VentaController::class)->group(function(){
@@ -170,4 +171,12 @@ Route::controller(VentaController::class)->group(function(){
     Route::get('/venta/{id}','show');
     Route::put('/venta/{id}','update');
     Route::delete('/venta/{id}','destroy');
+});
+
+Route::controller(EstadoCitaController::class)->group(function(){
+    Route::get('/estadoCitas','index');
+    Route::post('/estadoCita','store');
+    Route::get('/estadoCita/{id}','show');
+    Route::put('/estadoCita/{id}','update');
+    Route::delete('/estadoCita/{id}','destroy');
 });

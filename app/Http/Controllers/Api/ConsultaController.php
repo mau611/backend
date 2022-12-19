@@ -17,12 +17,13 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
         $consulta = new Consulta;
-        $consulta->fecha = $request->fecha;
-        $consulta->comentario = $request->comentario;
-        $consulta->estado = $request->estado;
-        $consulta->tratamiento = $request->tratamiento;
+        $consulta->title = $request->title;
+        $consulta->start = $request->start;
+        $consulta->end = $request->end;
         $consulta->paciente_id = $request->paciente_id;
-        $consulta->tipo_consulta_id = $request->tipo_consulta_id;
+        $consulta->tipo_consulta_id = $request->tipoConsulta_id;
+        $consulta->consultorio_id = $request->id;
+        $consulta->estado_cita_id = $request->estadoConsulta_id;
         $consulta->save();
     }
 
@@ -36,11 +37,13 @@ class ConsultaController extends Controller
     {
         $consulta = Consulta::findOrFail($request->id);
         $consulta->fecha = $request->fecha;
-        $consulta->comentario = $request->comentario;
-        $consulta->estado = $request->estado;
-        $consulta->tratamiento = $request->tratamiento;
+        $consulta->start = $request->start;
+        $consulta->end = $request->end;
+        $consulta->estado = "";
         $consulta->paciente_id = $request->paciente_id;
-        $consulta->tipo_consulta_id = $request->tipo_consulta_id;
+        $consulta->tipo_consulta_id = $request->tipoConsulta_id;
+        $consulta->consultorio_id = $request->id;
+        $consulta->estado_cita_id = $request->estadoConsulta_id;
         $consulta->save();
         return $consulta;
     }

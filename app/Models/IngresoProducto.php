@@ -9,4 +9,8 @@ class IngresoProducto extends Model
 {
     use HasFactory;
     protected $fillable = ['fecha', 'PrecioCompra', 'PrecioVenta', 'cantidad', 'producto_id'];
+
+    public function producto(){
+        return $this->belongsTo(Producto::class);
+    }
 }

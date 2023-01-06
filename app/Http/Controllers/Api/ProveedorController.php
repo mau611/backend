@@ -10,7 +10,7 @@ class ProveedorController extends Controller
 {
     public function index()
     {
-        $proveedores = Proveedor::all();
+        $proveedores = Proveedor::with("productos")->get();
         return $proveedores;
     }
 

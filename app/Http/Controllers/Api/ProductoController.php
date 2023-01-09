@@ -27,7 +27,7 @@ class ProductoController extends Controller
         $ingreso->PrecioCompra = $request->precioCompra;
         $ingreso->PrecioVenta = $request->precioVenta;
         $ingreso->cantidad = $request->cantidad;
-        $ingreso->producto_id = $request->producto->id;
+        $ingreso->producto_id = $producto->id;
         $ingreso->save();
     }
 

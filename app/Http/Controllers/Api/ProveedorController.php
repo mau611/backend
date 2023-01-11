@@ -18,6 +18,7 @@ class ProveedorController extends Controller
     {
         $proveedor = new Proveedor();
         $proveedor->nombre = $request->nombre;
+        $proveedor->contacto = $request->contacto;
         $proveedor->save();
     }
 

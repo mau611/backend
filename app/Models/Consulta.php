@@ -9,4 +9,8 @@ class Consulta extends Model
 {
     use HasFactory;
     protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id'];
+
+    public function paciente(){
+        return $this->belongsTo(Paciente::class);
+    }
 }

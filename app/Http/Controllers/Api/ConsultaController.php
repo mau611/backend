@@ -10,7 +10,10 @@ class ConsultaController extends Controller
 {
     public function index()
     {
-        $consultas = Consulta::whith("paciente")->get();
+        $consultas = Consulta::with("paciente")
+                             ->with("tipoConsulta")
+                             ->with("consultorio")
+                             ->with("estadoCita")->get();
         return $consultas;
     }
 

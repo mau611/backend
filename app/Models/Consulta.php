@@ -13,4 +13,13 @@ class Consulta extends Model
     public function paciente(){
         return $this->belongsTo(Paciente::class);
     }
+    public function tipoConsulta(){
+        return $this->belongsTo(TipoConsulta::class);
+    }
+    public function consultorio(){
+        return $this->belongsTo(Consultorio::class);
+    }
+    public function estadoCita(){
+        return $this->belongsTo(EstadoCita::class);
+    }
 }

@@ -9,4 +9,8 @@ class EstadoCita extends Model
 {
     protected $fillable = ['estado'];
     use HasFactory;
+
+    public function citas(){
+        return $this->hasMany(Consulta::class);
+    }
 }

@@ -11,6 +11,9 @@ class Paciente extends Model
     protected $fillable = ['nombres', 'apellidos', 'telefono', 'fecha_nacimiento', 'ci', 'sexo', 'direccion', 'fecha_registro'];
 
     public function citas(){
-        return $this->hasMany(Consulta::class);
+        return $this->hasMany(Consulta::class, "paciente_id","paciente_id");
+    }
+    public function bonos(){
+        return $this->hasMany(Bono::class,  "paciente_id","paciente_id");
     }
 }

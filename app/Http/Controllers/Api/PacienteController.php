@@ -10,7 +10,7 @@ class PacienteController extends Controller
 {
     public function index()
     {
-        $pacientes = Paciente::all();
+        $pacientes = Paciente::with("bonos")->with("citas")->get();
         return $pacientes;
     }
 

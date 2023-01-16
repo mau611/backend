@@ -9,4 +9,8 @@ class Consultorio extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre', 'color'];
+
+    public function citas(){
+        return $this->hasMany(Consulta::class);
+    }
 }

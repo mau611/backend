@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\ProductosUsoController;
 use App\Http\Controllers\Api\ProfesionalController;
 use App\Http\Controllers\Api\ProveedorController;
 use App\Http\Controllers\Api\TipoConsultaController;
+use App\Http\Controllers\Api\ServiciosController;
 use App\Http\Controllers\Api\VentaController;
 use App\Models\DocumentoConsulta;
 use Illuminate\Http\Request;
@@ -179,4 +180,12 @@ Route::controller(EstadoCitaController::class)->group(function(){
     Route::get('/estadoCita/{id}','show');
     Route::put('/estadoCita/{id}','update');
     Route::delete('/estadoCita/{id}','destroy');
+});
+
+Route::controller(ServiciosController::class)->group(function(){
+    Route::get('/servicios','index');
+    Route::post('/servicio','store');
+    Route::get('/servicio/{id}','show');
+    Route::put('/servicio/{id}','update');
+    Route::delete('/servicio/{id}','destroy');
 });

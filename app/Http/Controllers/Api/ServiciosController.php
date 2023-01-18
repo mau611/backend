@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 class ServiciosController extends Controller
 {
     public function index()
     {
-        $servicios = Servicios::all();
+        $servicios = Servicio::all();
         return $servicios;
     }
 
     public function store(Request $request)
     {
-        $servicio = new Servicios();
+        $servicio = new Servicio();
         $servicio->servicio = $request->servicio;
         $servicio->costo = $request->costo;
         $servicio->save();
@@ -38,6 +39,6 @@ class ServiciosController extends Controller
     public function destroy($id)
     {
         $servicio = Servicio::destroy($id);
-        return $consulta;
+        return $servicio;
     }
 }

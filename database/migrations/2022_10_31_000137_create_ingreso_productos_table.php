@@ -19,6 +19,8 @@ return new class extends Migration
             $table->double("PrecioCompra");
             $table->double("PrecioVenta");
             $table->integer("cantidad");
+            $table->string("factura");
+            $table->date("vencimiento");
             $table->unsignedBigInteger("producto_id");
             $table->foreign("producto_id")->references("id")->on("productos")->onDelete("cascade");
             $table->timestamps();

@@ -13,7 +13,8 @@ class ConsultaController extends Controller
         $consultas = Consulta::with("paciente")
                              ->with("tipoConsulta")
                              ->with("consultorio")
-                             ->with("estadoCita")->get();
+                             ->with("estadoCita")
+                             ->with("facturas")->get();
         return $consultas;
     }
 

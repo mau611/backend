@@ -22,4 +22,7 @@ class Consulta extends Model
     public function estadoCita(){
         return $this->belongsTo(EstadoCita::class);
     }
+    public function facturas(){
+        return $this->hasMany(Factura::class);
+    }
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\ProductosUsoController;
 use App\Http\Controllers\Api\ProfesionalController;
 use App\Http\Controllers\Api\ProveedorController;
 use App\Http\Controllers\Api\TipoConsultaController;
+use App\Http\Controllers\Api\IngresoProductoController;
 use App\Http\Controllers\Api\ServiciosController;
 use App\Http\Controllers\Api\VentaController;
 use App\Models\DocumentoConsulta;
@@ -188,4 +189,8 @@ Route::controller(ServiciosController::class)->group(function(){
     Route::get('/servicio/{id}','show');
     Route::put('/servicio/{id}','update');
     Route::delete('/servicio/{id}','destroy');
+});
+
+Route::controller(IngresoProductoController::class)->group(function(){
+    Route::get('/ingreso_productos','index');
 });

@@ -22,10 +22,12 @@ return new class extends Migration
             $table->unsignedBigInteger("tipo_consulta_id");
             $table->unsignedBigInteger("consultorio_id");
             $table->unsignedBigInteger("estado_cita_id");
+            $table->unsignedBigInteger("profesional_id");
             $table->foreign("paciente_id")->references("id")->on("pacientes")->onDelete("cascade");
             $table->foreign("tipo_consulta_id")->references("id")->on("tipo_consultas")->onDelete("cascade");
             $table->foreign("consultorio_id")->references("id")->on("consultorios")->onDelete("cascade");
             $table->foreign("estado_cita_id")->references("id")->on("estado_citas")->onDelete("cascade");
+            $table->foreign("profesional_id")->references("id")->on("profesionals");
             $table->timestamps();
         });
     }

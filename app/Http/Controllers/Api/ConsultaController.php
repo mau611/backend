@@ -28,6 +28,7 @@ class ConsultaController extends Controller
         $consulta->tipo_consulta_id = $request->tipoConsulta_id;
         $consulta->consultorio_id = $request->id;
         $consulta->estado_cita_id = $request->estadoConsulta_id;
+        $consulta->profesional_id = $request->profesional_id;
         $consulta->save();
     }
 

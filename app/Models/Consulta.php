@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Consulta extends Model
 {
     use HasFactory;
-    protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id'];
+    protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id','profesional_id'];
 
     public function paciente(){
         return $this->belongsTo(Paciente::class);
@@ -24,5 +24,8 @@ class Consulta extends Model
     }
     public function facturas(){
         return $this->hasMany(Factura::class);
+    } 
+    public function quienAgendo(){
+        return $this->belongsTo(Profesional::class);
     }
 }

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('venta_producto', function (Blueprint $table) {
+        Schema::create('venta_ingreso', function (Blueprint $table) {
             $table->id();
             $table->integer("Subtotal");
-            $table->unsignedBigInteger("producto_id");
+            $table->unsignedBigInteger("ingreso_id");
             $table->unsignedBigInteger("venta_id");
-            $table->foreign("producto_id")->references("id")->on("productos")->onDelete("cascade");
+            $table->foreign("ingreso_id")->references("id")->on("ingreso_productos")->onDelete("cascade");
             $table->foreign("venta_id")->references("id")->on("ventas")->onDelete("cascade");
             $table->timestamps();
         });

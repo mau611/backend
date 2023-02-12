@@ -10,4 +10,7 @@ class Profesional extends Model
     use HasFactory;
     protected $fillable = ['nombre'];
 
+    public function citasAgendadas(){
+        return $this->hasMany(Consulta::class);
+    }
 }

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\IngresoProducto;
 use App\Models\Venta;
+use App\Models\VentaIngreso;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
@@ -17,14 +21,30 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         $venta = new Venta();
-        $venta->fecha = $request->fecha;
-        $venta->numero = $request->numero;
+        $date = new DateTime("now", new DateTimeZone('America/La_Paz') );
+        $venta->fecha = $date->format('Y-m-d');
+        $venta->numero = (int)$date->format('dmHis');
         $venta->total = $request->total;
         $venta->estado = $request->estado;
         $venta->tipo_pago = $request->tipo_pago;
         $venta->detalles_pago = $request->detalles_pago;
         $venta->observaciones = $request->observaciones;
+        $venta->paciente_id = str_split($request->paciente_id)[0];
+        $venta->profesional_id = str_split($request->profesional_id)[0];
         $venta->save();
+        $repeticiones = array_count_values($request->productos);
+        $productos = array_unique($request->productos);
+        foreach ($productos as $producto) {
+            $ventaIngreso = new VentaIngreso();
+            $ingreso = IngresoProducto::find($producto);
+            $ingreso->cantidad = $ingreso->cantidad - $repeticiones[$producto];
+            $ingreso->save();
+            $ventaIngreso->subtotal = $ingreso->PrecioVenta * $repeticiones[$producto];
+            $ventaIngreso->cantidad = $repeticiones[$producto];
+            $ventaIngreso->ingreso_id = $ingreso->id;
+            $ventaIngreso->venta_id = $venta->id;
+            $ventaIngreso->save();
+        }
     }
 
     public function show($id)

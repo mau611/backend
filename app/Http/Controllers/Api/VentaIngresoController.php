@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\VentaIngreso;
 use Illuminate\Http\Request;
 
 class VentaIngresoController extends Controller
 {
     public function index()
     {
-        $ventas = Venta::all();
+        $ventas = VentaIngreso::all();
         return $ventas;
     }
 

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Concepto;
 use App\Models\Factura;
 use App\Models\Servicio;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 
 class FacturaController extends Controller
@@ -19,8 +21,9 @@ class FacturaController extends Controller
     public function store(Request $request)
     {
         $factura = new Factura();
-        $factura->fecha = date("Y-m-d");
-        $factura->numero = (int)date("dmHi");
+        $date = new DateTime("now", new DateTimeZone('America/La_Paz') );
+        $factura->fecha = $date->format('Y-m-d');
+        $factura->numero = (int)$date->format("dmHis");
         $factura->total = $request->total;
         $factura->estado_pago = $request->estado_pago;
         $factura->forma_pago = $request->forma_pago;

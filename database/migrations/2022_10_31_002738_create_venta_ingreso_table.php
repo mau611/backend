@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('venta_ingreso', function (Blueprint $table) {
+        Schema::create('venta_ingresos', function (Blueprint $table) {
             $table->id();
-            $table->integer("Subtotal");
+            $table->integer("subtotal");
+            $table->integer("cantidad");
             $table->unsignedBigInteger("ingreso_id");
             $table->unsignedBigInteger("venta_id");
             $table->foreign("ingreso_id")->references("id")->on("ingreso_productos")->onDelete("cascade");

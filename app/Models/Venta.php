@@ -10,4 +10,7 @@ class Venta extends Model
     use HasFactory;
     protected $fillable = ['fecha', 'numero', 'total', 'estado', 'tipo_pago', 'detalles_pago', 'observaciones','paciente_id', 'profesional_id'];
 
+    public function paciente(){
+        return $this->belongsTo(Paciente::class);
+    }
 }

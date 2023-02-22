@@ -14,14 +14,35 @@ class FacturaController extends Controller
 {
     public function index()
     {
-        $facturas = Factura::all();
-        return $facturas;
+        $facturas = Factura::with("consulta")->whereDate("fecha", new DateTime("now", new DateTimeZone('America/La_Paz')))->get();
+        $total = [];
+        $totalFacturacion = 0;
+        $efectivo = 0;
+        $tranferencias = 0;
+        $tarjeta = 0;
+        $bonos = 0;
+        foreach ($facturas as $factura) {
+            if ($factura->estado_pago == "pagado") {
+                $totalFacturacion += $factura->total;
+                if ($factura->forma_pago == "Efectivo") {
+                    $efectivo += $factura->total;
+                } else if ($factura->forma_pago == "Transferencia") {
+                    $tranferencias += $factura->total;
+                } else if ($factura->forma_pago == "Tarjeta de Debito") {
+                    $tarjeta += $factura->total;
+                } else {
+                    $bonos += $factura->total;
+                }
+            }
+        }
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $tarjeta, $bonos);
+        return [$facturas, $total];
     }
 
     public function store(Request $request)
     {
         $factura = new Factura();
-        $date = new DateTime("now", new DateTimeZone('America/La_Paz') );
+        $date = new DateTime("now", new DateTimeZone('America/La_Paz'));
         $factura->fecha = $date->format('Y-m-d');
         $factura->numero = (int)$date->format("dmHis");
         $factura->total = $request->total;
@@ -30,8 +51,8 @@ class FacturaController extends Controller
         $factura->detalles_pago = $request->detalles_pago;
         $factura->consulta_id = $request->consulta_id;
         $factura->save();
-        foreach($request->tratamientos as $tratamiento){
-            $servicio =Servicio::find((int)$tratamiento);
+        foreach ($request->tratamientos as $tratamiento) {
+            $servicio = Servicio::find((int)$tratamiento);
             $concepto = new Concepto();
             $concepto->nombre = $servicio->servicio;
             $concepto->cantidad = 1;

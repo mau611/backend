@@ -11,6 +11,6 @@ class Factura extends Model
     protected $fillable = ['fecha', 'numero', 'total', 'estado_pago', 'forma_pago', 'detalles_pago', 'consulta_id'];
 
     public function consulta(){
-        return $this->belongsTo(Consulta::class);
+        return $this->belongsTo(Consulta::class)->with("paciente")->with("tipoConsulta");
     }
 }

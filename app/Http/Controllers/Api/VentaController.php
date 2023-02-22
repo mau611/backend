@@ -14,8 +14,26 @@ class VentaController extends Controller
 {
     public function index()
     {
-        $ventas = Venta::all();
-        return $ventas;
+        $ventas = Venta::with("paciente")->whereDate("fecha", new DateTime("now", new DateTimeZone('America/La_Paz')))->get();
+        $total = [];
+        $totalFacturacion = 0;
+        $efectivo = 0;
+        $tranferencias = 0;
+        $tarjeta = 0;
+        foreach ($ventas as $venta) {
+            if ($venta->estado == "Pagado") {
+                $totalFacturacion += $venta->total;
+                if ($venta->tipo_pago == "Efectivo") {
+                    $efectivo += $venta->total;
+                } else if ($venta->tipo_pago == "Transferencia") {
+                    $tranferencias += $venta->total;
+                } else {
+                    $tarjeta += $venta->total;
+                }
+            }
+        }
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $tarjeta);
+        return [$ventas, $total];
     }
 
     public function store(Request $request)

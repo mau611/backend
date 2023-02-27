@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\TipoConsultaController;
 use App\Http\Controllers\Api\IngresoProductoController;
 use App\Http\Controllers\Api\ServiciosController;
 use App\Http\Controllers\Api\VentaController;
+use App\Http\Controllers\Api\ImportarDatosController;
 use App\Models\DocumentoConsulta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -193,4 +194,8 @@ Route::controller(ServiciosController::class)->group(function(){
 
 Route::controller(IngresoProductoController::class)->group(function(){
     Route::get('/ingreso_productos','index');
+});
+
+Route::controller(ImportarDatosController::class)->group(function(){
+    Route::post('/importar','store');
 });

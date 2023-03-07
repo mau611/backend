@@ -41,14 +41,9 @@ class ConsultaController extends Controller
     public function update(Request $request, $id)
     {
         $consulta = Consulta::findOrFail($request->id);
-        $consulta->fecha = $request->fecha;
         $consulta->start = $request->start;
         $consulta->end = $request->end;
-        $consulta->estado = "";
-        $consulta->paciente_id = $request->paciente_id;
-        $consulta->tipo_consulta_id = $request->tipoConsulta_id;
-        $consulta->consultorio_id = $request->id;
-        $consulta->estado_cita_id = $request->estadoConsulta_id;
+        $consulta->consultorio_id = $request->resourceId;
         $consulta->save();
         return $consulta;
     }

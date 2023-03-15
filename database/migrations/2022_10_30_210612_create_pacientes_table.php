@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("apellidos");
             $table->string("telefono");
             $table->date("fecha_nacimiento");
-            $table->string("ci")->unique();
+            $table->string("ci");
             $table->string("sexo");
             $table->string("direccion");
             $table->date("fecha_registro");

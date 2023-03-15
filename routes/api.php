@@ -69,6 +69,7 @@ Route::controller(ConsultaController::class)->group(function(){
     Route::post('/consulta','store');
     Route::get('/consulta/{id}','show');
     Route::put('/consulta/{id}','update');
+    Route::put('/consulta/{id}/{eId}','updateEstado');
     Route::delete('/consulta/{id}','destroy');
 });
 

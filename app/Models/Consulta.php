@@ -23,7 +23,7 @@ class Consulta extends Model
         return $this->belongsTo(EstadoCita::class);
     }
     public function facturas(){
-        return $this->hasMany(Factura::class);
+        return $this->hasMany(Factura::class)->with('conceptos');
     } 
     public function quienAgendo(){
         return $this->belongsTo(Profesional::class);

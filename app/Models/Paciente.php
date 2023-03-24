@@ -14,7 +14,7 @@ class Paciente extends Model
         return $this->hasMany(Consulta::class, "paciente_id","paciente_id");
     }
     public function bonos(){
-        return $this->hasMany(Bono::class,  "paciente_id","paciente_id");
+        return $this->hasMany(Bono::class);
     }
     public function compras(){
         return $this->hasMany(Venta::class);

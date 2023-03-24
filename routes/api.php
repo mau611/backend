@@ -53,6 +53,7 @@ Route::controller(BonosController::class)->group(function(){
     Route::post('/bono','store');
     Route::get('/bono/{id}','show');
     Route::put('/bono/{id}','update');
+    Route::put('/descontarBono/{id}','descontar');
     Route::delete('/bono/{id}','destroy');
 });
 

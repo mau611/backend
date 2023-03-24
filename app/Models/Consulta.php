@@ -11,7 +11,7 @@ class Consulta extends Model
     protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id','profesional_id'];
 
     public function paciente(){
-        return $this->belongsTo(Paciente::class);
+        return $this->belongsTo(Paciente::class)->with('bonos');
     }
     public function tipoConsulta(){
         return $this->belongsTo(TipoConsulta::class);

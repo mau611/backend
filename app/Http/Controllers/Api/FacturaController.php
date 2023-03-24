@@ -44,7 +44,7 @@ class FacturaController extends Controller
         $factura = new Factura();
         $date = new DateTime("now", new DateTimeZone('America/La_Paz'));
         $factura->fecha = $date->format('Y-m-d');
-        $factura->numero = (int)$date->format("dmHis");
+        $factura->numero = (int)$date->format("dmHi");
         $factura->total = $request->total;
         $factura->estado_pago = $request->estado_pago;
         $factura->forma_pago = $request->forma_pago;

@@ -41,7 +41,7 @@ class VentaController extends Controller
         $venta = new Venta();
         $date = new DateTime("now", new DateTimeZone('America/La_Paz') );
         $venta->fecha = $date->format('Y-m-d');
-        $venta->numero = (int)$date->format('dmHis');
+        $venta->numero = (int)$date->format('dmHi');
         $venta->total = $request->total;
         $venta->estado = $request->estado;
         $venta->tipo_pago = $request->tipo_pago;

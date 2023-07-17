@@ -30,7 +30,7 @@ class PacienteController extends Controller
 
     public function show($id)
     {
-        $paciente = Paciente::find($id);
+        $paciente = Paciente::where("id","=",$id)->with("citas")->first();
         return $paciente;
 
     }

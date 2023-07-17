@@ -28,4 +28,7 @@ class Consulta extends Model
     public function quienAgendo(){
         return $this->belongsTo(Profesional::class);
     }
+    public function historias(){
+        return $this->hasMany(Historial::class);
+    }
 }

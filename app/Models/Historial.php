@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Historial extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'consulta_id'];
+    protected $fillable = ['evaluacion_objetiva', 'evaluacion_subjetiva' , 'evolucion' , 'consulta_id'];
+
+    public function consulta(){
+        return $this->belongsTo(Consulta::class);
+    }
 }

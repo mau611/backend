@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tratamiento;
 use Illuminate\Http\Request;
 
 class TratamientoController extends Controller
@@ -14,7 +15,8 @@ class TratamientoController extends Controller
      */
     public function index()
     {
-        //
+        $tratamientos = Tratamientos::all();
+        return $tratamientos;
     }
 
     /**
@@ -25,7 +27,11 @@ class TratamientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tratamiento = new Tratamiento;
+        $tratamiento->observacion = $request->observacion;
+        $tratamiento->fecha = date('Y-m-d');
+        $tratamiento->diagnostico_id = $request->$diagnostico_id;
+        $tratamiento->save();
     }
 
     /**
@@ -36,7 +42,8 @@ class TratamientoController extends Controller
      */
     public function show($id)
     {
-        //
+        $tratamiento = Tratamiento::find($id);
+        return $tratamiento;
     }
 
     /**
@@ -48,7 +55,11 @@ class TratamientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tratamiento = Tratamiento::findOrFail($request->id);
+        $tratamiento->observacion = $request->observacion;
+        $tratamiento->diagnostico_id = $request->$diagnostico_id;
+        $tratamiento->save();
+        return $tratamiento;
     }
 
     /**
@@ -59,6 +70,7 @@ class TratamientoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tratamiento = Tratamiento::destroy($id);
+        return $tratamiento;
     }
 }

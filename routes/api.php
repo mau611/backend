@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\FacturaController;
 use App\Http\Controllers\Api\GastoController;
 use App\Http\Controllers\Api\HistorialController;
 use App\Http\Controllers\Api\MedicoController;
+use App\Http\Controllers\Api\DiagnosticoController;
+use App\Http\Controllers\Api\TratamientoController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\ProductosUsoController;
@@ -193,6 +195,23 @@ Route::controller(ServiciosController::class)->group(function(){
     Route::put('/servicio/{id}','update');
     Route::delete('/servicio/{id}','destroy');
 });
+
+Route::controller(DiagnosticoController::class)->group(function(){
+    Route::get('/diagnosticos','index');
+    Route::post('/diagnostico','store');
+    Route::get('/diagnostico/{id}','show');
+    Route::put('/diagnostico/{id}','update');
+    Route::delete('/diagnostico/{id}','destroy');
+});
+
+Route::controller(TratamientoController::class)->group(function(){
+    Route::get('/tratamientos','index');
+    Route::post('/tratamiento','store');
+    Route::get('/tratamiento/{id}','show');
+    Route::put('/tratamiento/{id}','update');
+    Route::delete('/tratamiento/{id}','destroy');
+});
+
 
 Route::controller(IngresoProductoController::class)->group(function(){
     Route::get('/ingreso_productos','index');

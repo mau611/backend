@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('diagnosticos', function (Blueprint $table) {
             $table->id();
             $table->string("diagnostico");
-            $table->integer("fecha");
+            $table->date("fecha");
             $table->unsignedBigInteger("paciente_id");
             $table->foreign("paciente_id")->references("id")->on("pacientes")->onDelete("cascade");
             $table->timestamps();

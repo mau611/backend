@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Diagnostico;
 use Illuminate\Http\Request;
 
 class DiagnosticoController extends Controller
@@ -14,7 +15,8 @@ class DiagnosticoController extends Controller
      */
     public function index()
     {
-        //
+        $diagnosticos = Diagnostico::all();
+        return $diagnosticos;
     }
 
     /**
@@ -25,7 +27,12 @@ class DiagnosticoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $diagnostico = new Diagnostico;
+        $diagnostico->diagnostico = $request->diagnostico;
+        $diagnostico->fecha = date('Y-m-d');
+        $diagnostico->paciente_id = $request->paciente_id;
+        $diagnostico->save();
+        return $diagnostico;
     }
 
     /**
@@ -36,7 +43,8 @@ class DiagnosticoController extends Controller
      */
     public function show($id)
     {
-        //
+        $diagnostico = Diagnostico::find($id);
+        return $diagnostico;
     }
 
     /**
@@ -48,7 +56,10 @@ class DiagnosticoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $diagnostico = Diagnostico::findOrFail($request->id);
+        $diagnostico->diagnostico = $request->diagnostico;
+        $diagnostico->save();
+        return $diagnostico;
     }
 
     /**
@@ -59,6 +70,7 @@ class DiagnosticoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $diagnostico = Diagnostico::destroy($id);
+        return $diagnostico;
     }
 }

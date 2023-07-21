@@ -15,7 +15,7 @@ class TratamientoController extends Controller
      */
     public function index()
     {
-        $tratamientos = Tratamientos::all();
+        $tratamientos = Tratamiento::all();
         return $tratamientos;
     }
 
@@ -28,9 +28,9 @@ class TratamientoController extends Controller
     public function store(Request $request)
     {
         $tratamiento = new Tratamiento;
-        $tratamiento->observacion = $request->observacion;
+        $tratamiento->tratamiento = $request->tratamiento;
         $tratamiento->fecha = date('Y-m-d');
-        $tratamiento->diagnostico_id = $request->$diagnostico_id;
+        $tratamiento->diagnostico_id = $request->diagnostico_id;
         $tratamiento->save();
     }
 
@@ -57,7 +57,7 @@ class TratamientoController extends Controller
     {
         $tratamiento = Tratamiento::findOrFail($request->id);
         $tratamiento->observacion = $request->observacion;
-        $tratamiento->diagnostico_id = $request->$diagnostico_id;
+        $tratamiento->diagnostico_id = $request->diagnostico_id;
         $tratamiento->save();
         return $tratamiento;
     }

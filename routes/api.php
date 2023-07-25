@@ -130,6 +130,8 @@ Route::controller(PacienteController::class)->group(function(){
     Route::get('/paciente/{id}','show');
     Route::put('/paciente/{id}','update');
     Route::delete('/paciente/{id}','destroy');
+    Route::post('/paciente_profesional','agregarProfesional');
+    Route::get('/paciente/profesionales/{id}','profesionales');
 });
 
 Route::controller(ProductoController::class)->group(function(){

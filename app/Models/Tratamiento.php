@@ -10,7 +10,7 @@ class Tratamiento extends Model
     use HasFactory;
     protected $fillable = ['observacion', 'fecha' , 'diagnostico_id'];
 
-    public function paciente(){
-        return $this->hasMany(Diagnostico::class);
+    public function diagnostico(){
+        return $this->belongsTo(Diagnostico::class);
     }
 }

@@ -13,5 +13,9 @@ class Diagnostico extends Model
     public function paciente(){
         return $this->belongsTo(Paciente::class);
     }
+    public function tratamientos(){
+        return $this->hasMany(Tratamiento::class);
+    }
+
 }
 

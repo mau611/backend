@@ -20,6 +20,6 @@ class Paciente extends Model
         return $this->hasMany(Venta::class);
     }
     public function diagnosticos(){
-        return $this->hasMany(Diagnostico::class);
+        return $this->hasMany(Diagnostico::class)->with('tratamientos');
     }
 }

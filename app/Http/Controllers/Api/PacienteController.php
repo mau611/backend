@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 use App\Models\Paciente;
+use App\Models\Profesional;
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
@@ -55,5 +57,23 @@ class PacienteController extends Controller
         $paciente = Paciente::destroy($id);
         return $paciente;
 
+    }
+
+    public function agregarProfesional($paciente_id, $profesional_id){
+        return DB::table('profesional_paciente')->insert([
+            [
+                'paciente_id' => $paciente_id, 
+                'profesional_id' => $profesional_id
+            ],
+        ]);
+    }
+    public function profesionales($id){
+        $profsIds = DB::table('profesional_paciente')->where('paciente_id', $id)->get();
+        $profesionales = array();
+        foreach($profsIds as $profId){
+            $profesional = Profesional::findOrFail($profId->profesional_id);
+            array_push($profesionales, $profesional);
+        }
+        return $profesionales;
     }
 }

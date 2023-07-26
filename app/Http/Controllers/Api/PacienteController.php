@@ -32,7 +32,7 @@ class PacienteController extends Controller
 
     public function show($id)
     {
-        $paciente = Paciente::where("id","=",$id)->with("citas")->with("diagnosticos")->first();
+        $paciente = Paciente::where("id","=",$id)->with("bonos")->with("citas")->with("diagnosticos")->first();
         return $paciente;
 
     }

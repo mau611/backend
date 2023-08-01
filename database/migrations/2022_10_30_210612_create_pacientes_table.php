@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
-            $table->string("nombres");
-            $table->string("apellidos");
-            $table->string("telefono");
-            $table->date("fecha_nacimiento");
-            $table->string("ci");
-            $table->string("sexo");
-            $table->string("direccion");
-            $table->date("fecha_registro");
+            $table->string("nombres")->nullable();
+            $table->string("apellidos")->nullable();
+            $table->string("telefono")->nullable();
+            $table->date("fecha_nacimiento")->nullable();
+            $table->string("ci")->nullable();
+            $table->string("sexo")->nullable();
+            $table->string("direccion")->nullable();
+            $table->date("fecha_registro")->nullable();
             $table->timestamps();
         });
     }

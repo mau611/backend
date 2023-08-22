@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCitaRequest;
 use App\Models\Consulta;
 use App\Models\EstadoCita;
 use Illuminate\Http\Request;
@@ -19,8 +20,9 @@ class ConsultaController extends Controller
         return $consultas;
     }
 
-    public function store(Request $request)
+    public function store(StoreCitaRequest $datos)
     {
+        $request = $datos->validated();
         $consulta = new Consulta;
         $consulta->title = $request->title;
         $consulta->start = $request->start;

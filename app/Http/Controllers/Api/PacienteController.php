@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\StorePacienteRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Paciente;
 use App\Models\Profesional;
@@ -16,8 +16,10 @@ class PacienteController extends Controller
         return $pacientes;
     }
 
-    public function store(Request $request)
+    public function store(StorePacienteRequest $datos)
     {
+        $request = $datos->validated();
+        dd($request);
         $paciente = new Paciente();
         $paciente->nombres = $request->nombres;
         $paciente->apellidos = $request->apellidos;

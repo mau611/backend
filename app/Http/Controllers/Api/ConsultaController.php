@@ -23,15 +23,15 @@ class ConsultaController extends Controller
     public function store(StoreCitaRequest $datos)
     {
         $request = $datos->validated();
-        $consulta = new Consulta;
-        $consulta->title = $request->title;
-        $consulta->start = $request->start;
-        $consulta->end = $request->end;
-        $consulta->paciente_id = $request->paciente_id;
-        $consulta->tipo_consulta_id = $request->tipoConsulta_id;
-        $consulta->consultorio_id = $request->id;
-        $consulta->estado_cita_id = $request->estadoConsulta_id;
-        $consulta->profesional_id = $request->profesional_id;
+        $consulta = new Consulta();
+        $consulta->title = $request['title'];
+        $consulta->start = $request['start'];
+        $consulta->end = $request['end'];
+        $consulta->paciente_id = $request['paciente_id'];
+        $consulta->tipo_consulta_id = $request['tipoConsulta_id'];
+        $consulta->consultorio_id = $request['id'];
+        $consulta->estado_cita_id = $request['estadoConsulta_id'];
+        $consulta->profesional_id = $request['profesional_id'];
         $consulta->save();
     }
 

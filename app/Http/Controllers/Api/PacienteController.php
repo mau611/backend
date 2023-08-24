@@ -19,16 +19,15 @@ class PacienteController extends Controller
     public function store(StorePacienteRequest $datos)
     {
         $request = $datos->validated();
-        dd($request);
         $paciente = new Paciente();
-        $paciente->nombres = $request->nombres;
-        $paciente->apellidos = $request->apellidos;
-        $paciente->telefono = $request->telefono;
-        $paciente->fecha_nacimiento = $request->fecha_nacimiento;
-        $paciente->ci = $request->ci;
-        $paciente->sexo = $request->sexo;
-        $paciente->direccion = $request->direccion;
-        $paciente->fecha_registro = $request->fecha_registro;
+        $paciente->nombres = $request['nombres'];
+        $paciente->apellidos = $request['apellidos'];
+        $paciente->telefono = $request['telefono'];
+        $paciente->fecha_nacimiento = $request['fecha_nacimiento'];
+        $paciente->ci = $request['ci'];
+        $paciente->sexo = $request['sexo'];
+        $paciente->direccion = $request['direccion'];
+        $paciente->fecha_registro = $request['fecha_registro'];
         $paciente->save();
     }
 

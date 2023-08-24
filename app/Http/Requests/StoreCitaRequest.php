@@ -24,11 +24,14 @@ class StoreCitaRequest extends FormRequest
     public function rules()
     {
         return [
-            'tipo_consulta_id' => 'required',
-            'title' => 'required|min:4',
-            'estado_cita_id' => 'required',
+            'tipoConsulta_id' => 'required',
+            'title' => 'required',
+            'estadoConsulta_id' => 'required',
             'profesional_id' => 'required',
             'paciente_id' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'id' => 'required',
         ];
     }
 }

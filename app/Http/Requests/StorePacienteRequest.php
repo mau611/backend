@@ -32,6 +32,7 @@ class StorePacienteRequest extends FormRequest
             'ci' => 'required|unique:pacientes|min:5',
             'sexo' => 'required|',
             'direccion' => 'required|min:5',
+            'fecha_registro'=> 'required',
         ];
     }
 }

@@ -39,7 +39,7 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         $venta = new Venta();
-        $date = new DateTime("now", new DateTimeZone('America/La_Paz') );
+        $date = new DateTime("now", new DateTimeZone('America/La_Paz'));
         $venta->fecha = $date->format('Y-m-d');
         $venta->numero = (int)$date->format('dmHi');
         $venta->total = $request->total;
@@ -47,8 +47,8 @@ class VentaController extends Controller
         $venta->tipo_pago = $request->tipo_pago;
         $venta->detalles_pago = $request->detalles_pago;
         $venta->observaciones = $request->observaciones;
-        $venta->paciente_id = str_split($request->paciente_id)[0];
-        $venta->profesional_id = str_split($request->profesional_id)[0];
+        $venta->paciente_id = (int)explode(" ", $request->paciente_id)[0];
+        $venta->profesional_id = (int)explode(" ", $request->profesional_id)[0];
         $venta->save();
         $repeticiones = array_count_values($request->productos);
         $productos = array_unique($request->productos);

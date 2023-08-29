@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProductosUso extends Model
 {
     use HasFactory;
-    protected $fillable = ['productos_uso', 'fecha_ingreso', 'existencias'];
+    protected $fillable = ['productos_uso'];
+
+    public function ingresosUso()
+    {
+        return $this->hasMany(IngresoProductoUso::class);
+    }
 }

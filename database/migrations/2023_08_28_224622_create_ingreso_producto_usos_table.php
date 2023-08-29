@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('productos_usos', function (Blueprint $table) {
+        Schema::create('ingreso_producto_usos', function (Blueprint $table) {
             $table->id();
-            $table->string("productos_uso");
+            $table->date("fecha_ingreso");
+            $table->integer("existencias");
+            $table->integer("precio_compra");
+            $table->unsignedBigInteger("productos_uso_id");
+            $table->foreign("productos_uso_id")->references("id")->on("productos_usos")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productos_usos');
+        Schema::dropIfExists('ingreso_producto_usos');
     }
 };

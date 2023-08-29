@@ -57,7 +57,7 @@ class BonosController extends Controller
         $factura->total = 0;
         $factura->estado_pago = "pagado";
         $factura->forma_pago = "efectivo";
-        $factura->detalles_pago = strval($bono->sesiones-$bono->restantes) . "/" . strval($bono->sesiones) ." sesiones ".$bono->nombre;
+        $factura->detalles_pago = strval($bono->sesiones - $bono->restantes) . "/" . strval($bono->sesiones) . " sesiones " . $bono->nombre;
         $factura->consulta_id = $request->consulta_id;
         $bono->save();
         $factura->save();

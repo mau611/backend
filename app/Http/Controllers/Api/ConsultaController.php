@@ -13,10 +13,10 @@ class ConsultaController extends Controller
     public function index()
     {
         $consultas = Consulta::with("paciente")
-                             ->with("tipoConsulta")
-                             ->with("consultorio")
-                             ->with("estadoCita")
-                             ->with("facturas")->get();
+            ->with("tipoConsulta")
+            ->with("consultorio")
+            ->with("estadoCita")
+            ->with("facturas")->get();
         return $consultas;
     }
 

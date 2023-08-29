@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class AlmacenController extends Controller
 {
-    
+
     public function index()
     {
         $productos = Almacen::all();
-        return $productos;   
+        return $productos;
     }
 
-    
+
     public function store(Request $request)
     {
         //'nombre', 'descripcion', 'precioCompra', 'fechaIngreso', 'existencias'
@@ -46,9 +46,10 @@ class AlmacenController extends Controller
         return $producto;
     }
 
-    public function descontar(Request $request){
+    public function descontar(Request $request)
+    {
         $producto = Almacen::findOrFail($request->id);
-        if($producto->existencias >0){
+        if ($producto->existencias > 0) {
             $producto->existencias = $producto->existencias - 1;
         }
         $producto->save();

@@ -19,8 +19,10 @@ class FacturaController extends Controller
         $totalFacturacion = 0;
         $efectivo = 0;
         $tranferencias = 0;
-        $tarjeta = 0;
-        $bonos = 0;
+        $qr = 0;
+        $tarjetaDebito = 0;
+        $tarjetaCredito = 0;
+
         foreach ($facturas as $factura) {
             if ($factura->estado_pago == "pagado") {
                 $totalFacturacion += $factura->total;
@@ -28,14 +30,16 @@ class FacturaController extends Controller
                     $efectivo += $factura->total;
                 } else if ($factura->forma_pago == "Transferencia") {
                     $tranferencias += $factura->total;
+                } else if ($factura->forma_pago == "Qr") {
+                    $qr += $factura->total;
                 } else if ($factura->forma_pago == "Tarjeta de Debito") {
-                    $tarjeta += $factura->total;
-                } else {
-                    $bonos += $factura->total;
+                    $tarjetaDebito += $factura->total;
+                } else if ($factura->forma_pago == "Tarjeta de Credito") {
+                    $tarjetaCredito += $factura->total;
                 }
             }
         }
-        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $tarjeta, $bonos);
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjetaDebito, $tarjetaCredito);
         return [$facturas, $total];
     }
 

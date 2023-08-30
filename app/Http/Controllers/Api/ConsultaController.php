@@ -20,6 +20,16 @@ class ConsultaController extends Controller
         return $consultas;
     }
 
+    public function consultasPorDia(Request $request)
+    {
+        $consultas = Consulta::where("start", "LIKE", '%' . $request->fecha . '%')->with("paciente")
+            ->with("tipoConsulta")
+            ->with("consultorio")
+            ->with("estadoCita")
+            ->with("facturas")->get();
+        return $consultas;
+    }
+
     public function store(StoreCitaRequest $datos)
     {
         $request = $datos->validated();

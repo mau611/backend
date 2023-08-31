@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\IngresoProducto;
 use Illuminate\Http\Request;
 use App\Models\IngresoProductoUso;
 
@@ -10,7 +11,7 @@ class IngresoProductoController extends Controller
 {
     public function index()
     {
-        $ingresos = IngresoProductoUso::with("producto")->get();
+        $ingresos = IngresoProducto::with("producto")->get();
         return $ingresos;
     }
 

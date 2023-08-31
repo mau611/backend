@@ -20,9 +20,13 @@ class ConsultaController extends Controller
         return $consultas;
     }
 
-    public function consultasPorDia(Request $request)
+    public function consultasPorDia($fecha)
     {
-        $consultas = Consulta::where("start", "LIKE", '%' . $request->fecha . '%')->with("paciente")
+        date_default_timezone_set('America/La_Paz');
+        $aux = strtotime($fecha);
+        $date = date("Y-m-d", $aux);
+        $dateSig = date("Y-m-d", strtotime($fecha . "+ 1 days"));
+        $consultas = Consulta::where("start", "LIKE", "%" . $date . "%")->orWhere("start", "LIKE", "%" . $dateSig . "%")->with("paciente")
             ->with("tipoConsulta")
             ->with("consultorio")
             ->with("estadoCita")

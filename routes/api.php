@@ -76,7 +76,7 @@ Route::controller(ConceptoController::class)->group(function () {
 
 Route::controller(ConsultaController::class)->group(function () {
     Route::get('/consultas', 'index');
-    Route::get('/consultas_por_dia', 'consultasPorDia');
+    Route::get('/consultas_por_dia/{fecha}', 'consultasPorDia');
     Route::post('/consulta', 'store');
     Route::get('/consulta/{id}', 'show');
     Route::put('/consulta/{id}', 'update');

@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Factura extends Model
 {
     use HasFactory;
-    protected $fillable = ['fecha', 'numero', 'total', 'estado_pago', 'forma_pago', 'detalles_pago', 'consulta_id'];
+    protected $fillable = ['fecha', 'numero', 'total', 'estado_pago', 'forma_pago', 'detalles_pago', 'digitos_tarjeta', 'consulta_id'];
 
-    public function consulta(){
+    public function consulta()
+    {
         return $this->belongsTo(Consulta::class)->with("paciente")->with("tipoConsulta");
     }
-    public function conceptos(){
+    public function conceptos()
+    {
         return $this->hasMany(Concepto::class);
     }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("tipo_pago");
             $table->longText("detalles_pago");
             $table->longText("observaciones");
+            $table->string("digitos_tarjeta")->nullable();
             $table->unsignedBigInteger("paciente_id");
             $table->unsignedBigInteger("profesional_id");
             $table->foreign("paciente_id")->references("id")->on("pacientes")->onDelete("cascade");

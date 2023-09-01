@@ -49,6 +49,7 @@ class VentaController extends Controller
         $venta->observaciones = $request->observaciones;
         $venta->paciente_id = (int)explode(" ", $request->paciente_id)[0];
         $venta->profesional_id = (int)explode(" ", $request->profesional_id)[0];
+        $venta->digitos_tarjeta = $request->digitos_tarjeta;
         $venta->save();
         $repeticiones = array_count_values($request->productos);
         $productos = array_unique($request->productos);

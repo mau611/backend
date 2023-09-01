@@ -20,8 +20,7 @@ class FacturaController extends Controller
         $efectivo = 0;
         $tranferencias = 0;
         $qr = 0;
-        $tarjetaDebito = 0;
-        $tarjetaCredito = 0;
+        $tarjeta = 0;
 
         foreach ($facturas as $factura) {
             if ($factura->estado_pago == "pagado") {
@@ -32,14 +31,12 @@ class FacturaController extends Controller
                     $tranferencias += $factura->total;
                 } else if ($factura->forma_pago == "Qr") {
                     $qr += $factura->total;
-                } else if ($factura->forma_pago == "Tarjeta de Debito") {
-                    $tarjetaDebito += $factura->total;
-                } else if ($factura->forma_pago == "Tarjeta de Credito") {
-                    $tarjetaCredito += $factura->total;
+                } else if ($factura->forma_pago == "Tarjeta") {
+                    $tarjeta += $factura->total;
                 }
             }
         }
-        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjetaDebito, $tarjetaCredito);
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
         return [$facturas, $total];
     }
 
@@ -54,6 +51,7 @@ class FacturaController extends Controller
         $factura->forma_pago = $request->forma_pago;
         $factura->detalles_pago = $request->detalles_pago;
         $factura->consulta_id = $request->consulta_id;
+        $factura->digitos_tarjeta = $request->digitos_tarjeta;
         $factura->save();
         foreach ($request->tratamientos as $tratamiento) {
             $servicio = Servicio::find((int)$tratamiento);

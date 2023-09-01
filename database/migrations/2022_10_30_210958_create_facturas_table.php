@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("estado_pago");
             $table->string("forma_pago");
             $table->string("detalles_pago");
+            $table->string("digitos_tarjeta")->nullable();
             $table->unsignedBigInteger("consulta_id");
             $table->foreign("consulta_id")->references("id")->on("consultas")->onDelete("cascade");
             $table->timestamps();

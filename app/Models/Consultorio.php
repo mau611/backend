@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Consultorio extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'color'];
+    protected $fillable = ['nombre', 'area_id'];
 
-    public function citas(){
+    public function citas()
+    {
         return $this->hasMany(Consulta::class);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
     }
 }

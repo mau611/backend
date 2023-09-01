@@ -14,11 +14,17 @@ class ConsultorioController extends Controller
         return $consultorios;
     }
 
+    public function consultorioPorArea($id)
+    {
+        $consultorios = Consultorio::where("area_id", $id)->get();
+        return $consultorios;
+    }
+
     public function store(Request $request)
     {
         $consultorio = new Consultorio;
         $consultorio->nombre = $request->nombre;
-        $consultorio->color = $request->color;
+        $consultorio->area_id = $request->area_id;
         $consultorio->save();
     }
 
@@ -32,7 +38,7 @@ class ConsultorioController extends Controller
     {
         $consultorio = Consultorio::findOrFail($request->id);
         $consultorio->nombre = $request->nombre;
-        $consultorio->color = $request->color;
+        $consultorio->area_id = $request->area_id;
         $consultorio->save();
         return $consultorio;
     }

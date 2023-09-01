@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AlmacenController;
+use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AseguradoraController;
 use App\Http\Controllers\Api\BonosController;
 use App\Http\Controllers\Api\ConceptoController;
@@ -39,6 +40,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 });
 
+
+Route::controller(AreaController::class)->group(function () {
+    Route::get('/areas', 'index');
+    Route::post('/area', 'store');
+    Route::get('/area/{id}', 'show');
+    Route::put('/area/{id}', 'update');
+    Route::delete('/area/{id}', 'destroy');
+});
 
 Route::controller(AlmacenController::class)->group(function () {
     Route::get('/inventario', 'index');
@@ -86,6 +95,7 @@ Route::controller(ConsultaController::class)->group(function () {
 
 Route::controller(ConsultorioController::class)->group(function () {
     Route::get('/consultorios', 'index');
+    Route::get('/consultoriosArea/{id}', 'consultorioPorArea');
     Route::post('/consultorio', 'store');
     Route::get('/consultorio/{id}', 'show');
     Route::put('/consultorio/{id}', 'update');

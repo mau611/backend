@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Controllers\Controller;
@@ -27,15 +28,15 @@ class PacienteController extends Controller
         $paciente->ci = $request['ci'];
         $paciente->sexo = $request['sexo'];
         $paciente->direccion = $request['direccion'];
+        $paciente->referencia = $request['referencia'];
         $paciente->fecha_registro = $request['fecha_registro'];
         $paciente->save();
     }
 
     public function show($id)
     {
-        $paciente = Paciente::where("id","=",$id)->with("bonos")->with("citas")->with("diagnosticos")->first();
+        $paciente = Paciente::where("id", "=", $id)->with("bonos")->with("citas")->with("diagnosticos")->first();
         return $paciente;
-
     }
 
     public function update(Request $request, $id)
@@ -57,21 +58,22 @@ class PacienteController extends Controller
     {
         $paciente = Paciente::destroy($id);
         return $paciente;
-
     }
 
-    public function agregarProfesional($paciente_id, $profesional_id){
+    public function agregarProfesional($paciente_id, $profesional_id)
+    {
         return DB::table('profesional_paciente')->insert([
             [
-                'paciente_id' => $paciente_id, 
+                'paciente_id' => $paciente_id,
                 'profesional_id' => $profesional_id
             ],
         ]);
     }
-    public function profesionales($id){
+    public function profesionales($id)
+    {
         $profsIds = DB::table('profesional_paciente')->where('paciente_id', $id)->get();
         $profesionales = array();
-        foreach($profsIds as $profId){
+        foreach ($profsIds as $profId) {
             $profesional = Profesional::findOrFail($profId->profesional_id);
             array_push($profesionales, $profesional);
         }

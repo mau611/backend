@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("ci")->nullable();
             $table->string("sexo")->nullable();
             $table->string("direccion")->nullable();
+            $table->string("referencia")->nullable();
             $table->date("fecha_registro")->nullable();
             $table->timestamps();
         });

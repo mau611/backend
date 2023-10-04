@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\GastoController;
 use App\Http\Controllers\Api\HistorialController;
 use App\Http\Controllers\Api\MedicoController;
 use App\Http\Controllers\Api\DiagnosticoController;
+use App\Http\Controllers\Api\EstadisticasController;
 use App\Http\Controllers\Api\TratamientoController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\ProductoController;
@@ -251,4 +252,8 @@ Route::controller(IngresoProductoUsoController::class)->group(function () {
 
 Route::controller(ImportarDatosController::class)->group(function () {
     Route::post('/importar', 'store');
+});
+
+Route::controller(EstadisticasController::class)->group(function () {
+    Route::get('/asistencias/{citaId}/{consultorioId}/{desde}/{hasta}', 'estadisticaAsistencias');
 });

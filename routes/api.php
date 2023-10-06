@@ -256,4 +256,5 @@ Route::controller(ImportarDatosController::class)->group(function () {
 
 Route::controller(EstadisticasController::class)->group(function () {
     Route::get('/asistencias/{citaId}/{consultorioId}/{desde}/{hasta}', 'estadisticaAsistencias');
+    Route::get('/consultas/{pacienteId}/{citaId}/{desde}/{hasta}', 'estadisticaConsultas');
 });

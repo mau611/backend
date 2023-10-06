@@ -66,4 +66,37 @@ class EstadisticasController extends Controller
         array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
         return [$facturas, $total];
     }
+    public function estadisticaConsultas($pacienteId, $citaId, $desde, $hasta)
+    {
+        $total = [];
+        $totalFacturacion = 0;
+        $efectivo = 0;
+        $tranferencias = 0;
+        $qr = 0;
+        $tarjeta = 0;
+        $facturas = new Collection();
+        if ($pacienteId == "Todos" && $citaId == "Todos") {
+            $facturas = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+        } else {
+            if ($pacienteId != "Todos" && $citaId == "Todos") {
+                $facturas = Factura::get();
+            }
+        }
+        foreach ($facturas as $factura) {
+            if ($factura->estado_pago == "pagado") {
+                $totalFacturacion += $factura->total;
+                if ($factura->forma_pago == "Efectivo") {
+                    $efectivo += $factura->total;
+                } else if ($factura->forma_pago == "Transferencia") {
+                    $tranferencias += $factura->total;
+                } else if ($factura->forma_pago == "Qr") {
+                    $qr += $factura->total;
+                } else if ($factura->forma_pago == "Tarjeta") {
+                    $tarjeta += $factura->total;
+                }
+            }
+        }
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
+        return [$facturas, $total];
+    }
 }

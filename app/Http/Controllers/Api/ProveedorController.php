@@ -30,8 +30,9 @@ class ProveedorController extends Controller
 
     public function update(Request $request, $id)
     {
-        $proveedor = Proveedor::findOrFail($request->id);
+        $proveedor = Proveedor::findOrFail($id);
         $proveedor->nombre = $request->nombre;
+        $proveedor->contacto = $request->contacto;
         $proveedor->save();
         return $proveedor;
     }

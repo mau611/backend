@@ -88,6 +88,7 @@ Route::controller(ConsultaController::class)->group(function () {
     Route::get('/consultas', 'index');
     Route::get('/consultas_por_dia/{fecha}', 'consultasPorDia');
     Route::post('/consulta', 'store');
+    Route::post('/consulta_paciente', 'consultaPaciente');
     Route::get('/consulta/{id}', 'show');
     Route::put('/consulta/{id}', 'update');
     Route::put('/consulta/{id}/{eId}', 'updateEstado');
@@ -248,6 +249,8 @@ Route::controller(IngresoProductoController::class)->group(function () {
 
 Route::controller(IngresoProductoUsoController::class)->group(function () {
     Route::post('/ingreso_producto_uso', 'store');
+    Route::put('/ingreso_producto_uso/{id}', 'update');
+    Route::get('/ingreso_producto_uso/{id}', 'show');
 });
 
 Route::controller(ImportarDatosController::class)->group(function () {

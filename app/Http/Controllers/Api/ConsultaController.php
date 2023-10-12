@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCitaPacienteRequest;
 use App\Http\Requests\StoreCitaRequest;
 use App\Models\Consulta;
 use App\Models\EstadoCita;
+use App\Models\Paciente;
 use Illuminate\Http\Request;
 
 class ConsultaController extends Controller
@@ -42,6 +44,31 @@ class ConsultaController extends Controller
         $consulta->start = $request['start'];
         $consulta->end = $request['end'];
         $consulta->paciente_id = $request['paciente_id'];
+        $consulta->tipo_consulta_id = $request['tipoConsulta_id'];
+        $consulta->consultorio_id = $request['id'];
+        $consulta->estado_cita_id = $request['estadoConsulta_id'];
+        $consulta->profesional_id = $request['profesional_id'];
+        $consulta->save();
+    }
+    public function consultaPaciente(StoreCitaPacienteRequest $datos)
+    {
+        $request = $datos->validated();
+        $paciente = new Paciente();
+        $paciente->nombres = $request['nombres'];
+        $paciente->apellidos = $request['apellidos'];
+        $paciente->telefono = $request['telefono'];
+        $paciente->fecha_nacimiento = $request['fecha_nacimiento'];
+        $paciente->ci = $request['ci'];
+        $paciente->sexo = $request['sexo'];
+        $paciente->direccion = $request['direccion'];
+        $paciente->referencia = $request['referencia'];
+        $paciente->fecha_registro = $request['fecha_registro'];
+        $paciente->save();
+        $consulta = new Consulta();
+        $consulta->title = $request['title'];
+        $consulta->start = $request['start'];
+        $consulta->end = $request['end'];
+        $consulta->paciente_id = $paciente->id;
         $consulta->tipo_consulta_id = $request['tipoConsulta_id'];
         $consulta->consultorio_id = $request['id'];
         $consulta->estado_cita_id = $request['estadoConsulta_id'];

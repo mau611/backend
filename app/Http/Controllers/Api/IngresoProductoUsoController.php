@@ -42,7 +42,8 @@ class IngresoProductoUsoController extends Controller
      */
     public function show($id)
     {
-        //
+        $productoUsoIngreso = IngresoProductoUso::find($id);
+        return $productoUsoIngreso;
     }
 
     /**
@@ -54,7 +55,11 @@ class IngresoProductoUsoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $productoUsoIngreso = IngresoProductoUso::findOrFail($id);
+        $productoUsoIngreso->fecha_ingreso = $request->fecha_ingreso;
+        $productoUsoIngreso->existencias = $request->existencias;
+        $productoUsoIngreso->precio_compra = $request->precio_compra;
+        $productoUsoIngreso->save();
     }
 
     /**

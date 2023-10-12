@@ -56,7 +56,6 @@ class AreaController extends Controller
         $area = Area::findOrFail($request->id);
         $area->nombre = $request->nombre;
         $area->save();
-        return $area;
     }
 
     /**

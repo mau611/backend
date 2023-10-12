@@ -10,7 +10,7 @@ class ConsultorioController extends Controller
 {
     public function index()
     {
-        $consultorios = Consultorio::all();
+        $consultorios = Consultorio::with("area")->get();
         return $consultorios;
     }
 
@@ -30,7 +30,7 @@ class ConsultorioController extends Controller
 
     public function show($id)
     {
-        $consultorio = Consultorio::find($id);
+        $consultorio = Consultorio::with("area")->find($id);
         return $consultorio;
     }
 

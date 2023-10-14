@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concepto;
+use App\Models\Consulta;
 use App\Models\Factura;
 use App\Models\Servicio;
 use DateTime;
@@ -68,20 +69,41 @@ class FacturaController extends Controller
 
     public function show($id)
     {
-        $factura = Factura::find($id);
+        $factura = Factura::with("conceptos")->with("consulta")->find($id);
         return $factura;
+    }
+    public function ultimasFacturas($id)
+    {
+        $citasPaciente = Consulta::where("paciente_id", $id)->orderBy("created_at", "DESC")->with("facturas")->take(5)->get();
+        $facturas = [];
+        foreach ($citasPaciente as $cita) {
+            foreach ($cita->facturas as $factura) {
+                array_push($facturas, $factura);
+            }
+        }
+        return $facturas;
     }
 
     public function update(Request $request, $id)
     {
-        $factura = Factura::findOrFail($request->id);
-        $factura->fecha = $request->fecha;
-        $factura->numero = $request->numero;
+        $factura = Factura::findOrFail($id);
         $factura->total = $request->total;
         $factura->estado_pago = $request->estado_pago;
         $factura->forma_pago = $request->forma_pago;
         $factura->detalles_pago = $request->detalles_pago;
-        $factura->consulta_id = $request->consulta_id;
+        $conceptosBD = $this->show($id)->conceptos;
+        foreach ($conceptosBD as $cBD) {
+            Concepto::destroy($cBD->id);
+        }
+        foreach ($request->conceptos as $concepto) {
+            $conceptoNuevo = new Concepto();
+            $conceptoNuevo->nombre = $concepto["concepto"];
+            $conceptoNuevo->cantidad = $concepto["cantidad"];
+            $conceptoNuevo->precio = $concepto["precio"];
+            $conceptoNuevo->subtotal = ($concepto["precio"]) * ($concepto["cantidad"]);
+            $conceptoNuevo->factura_id = $factura->id;
+            $conceptoNuevo->save();
+        }
         $factura->save();
         return $factura;
     }

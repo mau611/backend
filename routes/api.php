@@ -116,6 +116,7 @@ Route::controller(FacturaController::class)->group(function () {
     Route::get('/facturas', 'index');
     Route::post('/factura', 'store');
     Route::get('/factura/{id}', 'show');
+    Route::get('/ultimasFacturas/{id}', 'ultimasFacturas');
     Route::put('/factura/{id}', 'update');
     Route::delete('/factura/{id}', 'destroy');
 });

@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class VentaIngreso extends Model
 {
     use HasFactory;
-    protected $fillable = ['subtotal','cantidad', 'ingreso_id', 'venta_id'];
-
+    protected $fillable = ['subtotal', 'cantidad', 'ingreso_id', 'venta_id'];
 }

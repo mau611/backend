@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Consulta;
 use App\Models\Factura;
+use App\Models\IngresoProducto;
+use App\Models\Venta;
+use App\Models\VentaIngreso;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -98,5 +101,41 @@ class EstadisticasController extends Controller
         }
         array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
         return [$facturas, $total];
+    }
+    public function estadisticaVentas($pacienteId, $desde, $hasta)
+    {
+        $total = [];
+        $totalFacturacion = 0;
+        $efectivo = 0;
+        $tranferencias = 0;
+        $qr = 0;
+        $tarjeta = 0;
+        $ventas = new Collection();
+        $vent = [];
+        if ($pacienteId == "Todos") {
+            $ventas = Venta::with("paciente")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+        } else {
+            $ventas = Venta::with("paciente")->where("paciente_id", $pacienteId)->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+        }
+        foreach ($ventas as $venta) {
+            $auxVentas = [];
+            array_push($auxVentas, $venta);
+            array_push($auxVentas, $venta->productos($venta->id));
+            array_push($vent, $auxVentas);
+            if ($venta->estado == "Pagado") {
+                $totalFacturacion += $venta->total;
+                if ($venta->tipo_pago == "Efectivo") {
+                    $efectivo += $venta->total;
+                } else if ($venta->tipo_pago == "Transferencia") {
+                    $tranferencias += $venta->total;
+                } else if ($venta->tipo_pago == "Qr") {
+                    $qr += $venta->total;
+                } else if ($venta->tipo_pago == "Tarjeta") {
+                    $tarjeta += $venta->total;
+                }
+            }
+        }
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
+        return [$ventas, $total, $vent];
     }
 }

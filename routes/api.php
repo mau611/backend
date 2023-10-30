@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\HistorialController;
 use App\Http\Controllers\Api\MedicoController;
 use App\Http\Controllers\Api\DiagnosticoController;
 use App\Http\Controllers\Api\EstadisticasController;
+use App\Http\Controllers\Api\FichaMedicaController;
 use App\Http\Controllers\Api\TratamientoController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\ProductoController;
@@ -262,4 +263,10 @@ Route::controller(EstadisticasController::class)->group(function () {
     Route::get('/asistencias/{citaId}/{consultorioId}/{desde}/{hasta}', 'estadisticaAsistencias');
     Route::get('/consultas/{pacienteId}/{citaId}/{desde}/{hasta}', 'estadisticaConsultas');
     Route::get('/estadisticas_ventas/{pacienteId}/{desde}/{hasta}', 'estadisticaVentas');
+});
+
+Route::controller(FichaMedicaController::class)->group(function () {
+    Route::get('/ficha_medica', 'index');
+    Route::post('/ficha_medica', 'store');
+    Route::post('/ficha_medica_imagen', 'imageStore');
 });

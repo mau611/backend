@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConsumoUso;
 use App\Models\IngresoProductoUso;
 use Illuminate\Http\Request;
 
@@ -59,6 +60,19 @@ class IngresoProductoUsoController extends Controller
         $productoUsoIngreso->fecha_ingreso = $request->fecha_ingreso;
         $productoUsoIngreso->existencias = $request->existencias;
         $productoUsoIngreso->precio_compra = $request->precio_compra;
+        $productoUsoIngreso->save();
+    }
+
+    public function consumir(Request $request, $id)
+    {
+        $productoUsoIngreso = IngresoProductoUso::findOrFail($id);
+        if ($productoUsoIngreso->existencias > 0) {
+            $productoUsoIngreso->existencias -= 1;
+            $consumoUso = new ConsumoUso();
+            $consumoUso->fecha = date('Y-m-d');
+            $consumoUso->ingreso_producto_uso_id = $productoUsoIngreso->id;
+            $consumoUso->save();
+        }
         $productoUsoIngreso->save();
     }
 

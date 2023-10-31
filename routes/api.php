@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\ServiciosController;
 use App\Http\Controllers\Api\VentaController;
 use App\Http\Controllers\Api\ImportarDatosController;
 use App\Http\Controllers\Api\IngresoProductoUsoController;
+use App\Http\Controllers\Api\ProfesionalPacienteController;
 use App\Http\Controllers\Api\VentaIngresoController;
 use App\Models\DocumentoConsulta;
 use Illuminate\Http\Request;
@@ -180,6 +181,12 @@ Route::controller(ProfesionalController::class)->group(function () {
     Route::delete('/profesional/{id}', 'destroy');
 });
 
+Route::controller(ProfesionalPacienteController::class)->group(function () {
+    Route::post('/profesionales_pacientes', 'store');
+    Route::get('/profesionales_pacientes/{pacId}', 'getProfesionales');
+    Route::get('/pacientes_profesionales/{profId}', 'getPacientes');
+});
+
 Route::controller(ProveedorController::class)->group(function () {
     Route::get('/proveedores', 'index');
     Route::post('/proveedor', 'store');
@@ -252,6 +259,7 @@ Route::controller(IngresoProductoController::class)->group(function () {
 Route::controller(IngresoProductoUsoController::class)->group(function () {
     Route::post('/ingreso_producto_uso', 'store');
     Route::put('/ingreso_producto_uso/{id}', 'update');
+    Route::put('/consumir_ingreso_producto_uso/{id}', 'consumir');
     Route::get('/ingreso_producto_uso/{id}', 'show');
 });
 

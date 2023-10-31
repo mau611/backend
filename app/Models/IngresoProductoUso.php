@@ -14,4 +14,8 @@ class IngresoProductoUso extends Model
     {
         return $this->belongsTo(ProductosUso::class);
     }
+    public function consumos()
+    {
+        return $this->hasMany(ConsumoUso::class);
+    }
 }

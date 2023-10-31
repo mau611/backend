@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Consulta;
 use App\Models\Factura;
 use App\Models\IngresoProducto;
+use App\Models\ProductosUso;
 use App\Models\Venta;
 use App\Models\VentaIngreso;
 use Illuminate\Database\Eloquent\Collection;
@@ -137,5 +138,11 @@ class EstadisticasController extends Controller
         }
         array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
         return [$ventas, $total, $vent];
+    }
+
+    public function estadisticaConsumoStock($productoId)
+    {
+        $productoUso = ProductosUso::where("id", $productoId)->with("ingresosUso")->first();
+        return $productoUso;
     }
 }

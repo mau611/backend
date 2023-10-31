@@ -12,6 +12,6 @@ class ProductosUso extends Model
 
     public function ingresosUso()
     {
-        return $this->hasMany(IngresoProductoUso::class);
+        return $this->hasMany(IngresoProductoUso::class)->with("consumos");
     }
 }

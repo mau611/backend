@@ -13,7 +13,7 @@ class PacienteController extends Controller
 {
     public function index()
     {
-        $pacientes = Paciente::get();
+        $pacientes = Paciente::with("descuentos")->get();
         return $pacientes;
     }
 
@@ -35,7 +35,7 @@ class PacienteController extends Controller
 
     public function show($id)
     {
-        $paciente = Paciente::where("id", "=", $id)->with("bonos")->with("citas")->with("diagnosticos")->first();
+        $paciente = Paciente::where("id", "=", $id)->with("bonos")->with("citas")->with("diagnosticos")->with("descuentos")->first();
         return $paciente;
     }
 

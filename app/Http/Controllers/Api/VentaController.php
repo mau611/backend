@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Descuento;
 use App\Models\IngresoProducto;
 use App\Models\Venta;
 use App\Models\VentaIngreso;
@@ -55,14 +56,33 @@ class VentaController extends Controller
         $productos = array_unique($request->productos);
         foreach ($productos as $producto) {
             $ventaIngreso = new VentaIngreso();
-            $ingreso = IngresoProducto::find($producto);
+            $ingreso = IngresoProducto::with("producto")->find($producto);
+            $descuento = Descuento::where([
+                ['activo', '=', 1],
+                ["producto", '=', 1],
+                ["paciente_id", '=', (int)explode(" ", $request->paciente_id)[0]],
+                ["serv_o_prod_id", '=', $ingreso->producto->id],
+            ])->first();
             $ingreso->cantidad = $ingreso->cantidad - $repeticiones[$producto];
-            $ingreso->save();
-            $ventaIngreso->subtotal = $ingreso->PrecioVenta * $repeticiones[$producto];
-            $ventaIngreso->cantidad = $repeticiones[$producto];
-            $ventaIngreso->ingreso_id = $ingreso->id;
-            $ventaIngreso->venta_id = $venta->id;
-            $ventaIngreso->save();
+            if ($descuento != null) {
+                if ($descuento->porcentaje) {
+                    $ventaIngreso->subtotal = ($ingreso->PrecioVenta - ($ingreso->PrecioVenta * ($descuento->cantidad_descuento / 100))) * $repeticiones[$producto];
+                } else {
+                    $ventaIngreso->subtotal = $descuento->cantidad_descuento * $repeticiones[$producto];
+                }
+                $ventaIngreso->cantidad = $repeticiones[$producto];
+                $ventaIngreso->ingreso_id = $ingreso->id;
+                $ventaIngreso->venta_id = $venta->id;
+                $ventaIngreso->save();
+                $ingreso->save();
+            } else {
+                $ventaIngreso->subtotal = $ingreso->PrecioVenta * $repeticiones[$producto];
+                $ventaIngreso->cantidad = $repeticiones[$producto];
+                $ventaIngreso->ingreso_id = $ingreso->id;
+                $ventaIngreso->venta_id = $venta->id;
+                $ventaIngreso->save();
+                $ingreso->save();
+            }
         }
     }
 

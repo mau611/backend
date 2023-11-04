@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BonosController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConsultaController;
 use App\Http\Controllers\Api\ConsultorioController;
+use App\Http\Controllers\Api\DescuentoController;
 use App\Http\Controllers\Api\EstadoCitaController;
 use App\Http\Controllers\Api\FacturaController;
 use App\Http\Controllers\Api\GastoController;
@@ -278,4 +279,9 @@ Route::controller(FichaMedicaController::class)->group(function () {
     Route::get('/ficha_medica', 'index');
     Route::post('/ficha_medica', 'store');
     Route::post('/ficha_medica_imagen', 'imageStore');
+});
+
+Route::controller(DescuentoController::class)->group(function () {
+    Route::get('/descuento', 'index');
+    Route::post('/descuento', 'store');
 });

@@ -8,27 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Consulta extends Model
 {
     use HasFactory;
-    protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id','profesional_id'];
+    protected $fillable = ['fecha', 'comentario', 'estado', 'tratamiento', 'paciente_id', 'tipo_consulta_id', 'profesional_id'];
 
-    public function paciente(){
-        return $this->belongsTo(Paciente::class)->with('bonos');
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class)->with('bonos')->with("descuentos");
     }
-    public function tipoConsulta(){
+    public function tipoConsulta()
+    {
         return $this->belongsTo(TipoConsulta::class);
     }
-    public function consultorio(){
+    public function consultorio()
+    {
         return $this->belongsTo(Consultorio::class);
     }
-    public function estadoCita(){
+    public function estadoCita()
+    {
         return $this->belongsTo(EstadoCita::class);
     }
-    public function facturas(){
+    public function facturas()
+    {
         return $this->hasMany(Factura::class)->with('conceptos');
-    } 
-    public function quienAgendo(){
+    }
+    public function quienAgendo()
+    {
         return $this->belongsTo(Profesional::class);
     }
-    public function historias(){
+    public function historias()
+    {
         return $this->hasMany(Historial::class);
     }
 }

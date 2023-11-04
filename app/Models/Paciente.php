@@ -26,4 +26,8 @@ class Paciente extends Model
     {
         return $this->hasMany(Diagnostico::class)->with('tratamientos');
     }
+    public function descuentos()
+    {
+        return $this->hasMany(Descuento::class);
+    }
 }

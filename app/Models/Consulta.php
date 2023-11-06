@@ -20,7 +20,7 @@ class Consulta extends Model
     }
     public function consultorio()
     {
-        return $this->belongsTo(Consultorio::class);
+        return $this->belongsTo(Consultorio::class)->with("area");
     }
     public function estadoCita()
     {

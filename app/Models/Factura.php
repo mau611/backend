@@ -12,7 +12,7 @@ class Factura extends Model
 
     public function consulta()
     {
-        return $this->belongsTo(Consulta::class)->with("paciente")->with("tipoConsulta");
+        return $this->belongsTo(Consulta::class)->with("paciente")->with("tipoConsulta")->with("consultorio");
     }
     public function conceptos()
     {

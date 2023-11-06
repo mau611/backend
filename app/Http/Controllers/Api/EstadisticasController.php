@@ -14,7 +14,42 @@ use Illuminate\Http\Request;
 
 class EstadisticasController extends Controller
 {
-
+    public function estadisticaAsistenciasPorArea($areaId, $desde, $hasta)
+    {
+        $total = [];
+        $totalFacturacion = 0;
+        $efectivo = 0;
+        $tranferencias = 0;
+        $qr = 0;
+        $tarjeta = 0;
+        $facturas = new Collection();
+        if ($areaId == "Todos") {
+            $facturas = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+        } else if ($areaId != "Todos") {
+            $facturasAux = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+            foreach ($facturasAux as $factura) {
+                if ($factura->consulta->consultorio->area->id == $areaId) {
+                    $facturas->push($factura);
+                }
+            }
+        }
+        foreach ($facturas as $factura) {
+            if ($factura->estado_pago == "pagado") {
+                $totalFacturacion += $factura->total;
+                if ($factura->forma_pago == "Efectivo") {
+                    $efectivo += $factura->total;
+                } else if ($factura->forma_pago == "Transferencia") {
+                    $tranferencias += $factura->total;
+                } else if ($factura->forma_pago == "Qr") {
+                    $qr += $factura->total;
+                } else if ($factura->forma_pago == "Tarjeta") {
+                    $tarjeta += $factura->total;
+                }
+            }
+        }
+        array_push($total, $totalFacturacion, $efectivo, $tranferencias, $qr, $tarjeta);
+        return [$facturas, $total];
+    }
     public function estadisticaAsistencias($citaId, $consultorioId, $desde, $hasta)
     {
         $total = [];
@@ -83,7 +118,28 @@ class EstadisticasController extends Controller
             $facturas = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
         } else {
             if ($pacienteId != "Todos" && $citaId == "Todos") {
-                $facturas = Factura::get();
+                $facturasAux = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+                foreach ($facturasAux as $factura) {
+                    if ($factura->consulta->paciente->id == $pacienteId) {
+                        $facturas->push($factura);
+                    }
+                }
+            }
+            if ($pacienteId == "Todos" && $citaId != "Todos") {
+                $facturasAux = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+                foreach ($facturasAux as $factura) {
+                    if ($factura->consulta->tipo_consulta_id == $citaId) {
+                        $facturas->push($factura);
+                    }
+                }
+            }
+            if ($pacienteId != "Todos" && $citaId != "Todos") {
+                $facturasAux = Factura::with("consulta")->whereBetween("fecha", [$desde, $hasta])->orderBy("fecha", "asc")->get();
+                foreach ($facturasAux as $factura) {
+                    if ($factura->consulta->tipo_consulta_id == $citaId && $factura->consulta->paciente->id == $pacienteId) {
+                        $facturas->push($factura);
+                    }
+                }
             }
         }
         foreach ($facturas as $factura) {

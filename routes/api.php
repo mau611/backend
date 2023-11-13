@@ -192,6 +192,7 @@ Route::controller(ProfesionalPacienteController::class)->group(function () {
 Route::controller(MedicoPacienteController::class)->group(function () {
     Route::post('/medico_paciente', 'store');
     Route::get('/medicos_pacientes/{pacId}', 'getMedicos');
+    Route::get('/pacientes_medicos/{pacId}', 'getPacientes');
 });
 
 Route::controller(ProveedorController::class)->group(function () {

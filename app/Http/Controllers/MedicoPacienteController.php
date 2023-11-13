@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Medico;
+use App\Models\Paciente;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,5 +30,15 @@ class MedicoPacienteController extends Controller
             $medicos->push($medico);
         }
         return $medicos;
+    }
+    public function getPacientes($profId)
+    {
+        $pacientes_medicos = DB::table('medico_paciente')->where("medico_id", $profId)->get();
+        $pacientes = new Collection();
+        foreach ($pacientes_medicos as $pac_prof) {
+            $paciente = Paciente::where("id", "=", $pac_prof->paciente_id)->with("diagnosticos")->first();
+            $pacientes->push($paciente);
+        }
+        return $pacientes;
     }
 }

@@ -31,7 +31,7 @@ class MedicoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $medico = Medico::findOrFail();
+        $medico = Medico::findOrFail($id);
         $medico->nombre = $request->nombre;
         $medico->telefono = $request->telefono;
         $medico->Direccion = $request->Direccion;

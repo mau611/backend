@@ -35,6 +35,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MedicoPacienteController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -186,6 +187,11 @@ Route::controller(ProfesionalPacienteController::class)->group(function () {
     Route::post('/profesionales_pacientes', 'store');
     Route::get('/profesionales_pacientes/{pacId}', 'getProfesionales');
     Route::get('/pacientes_profesionales/{profId}', 'getPacientes');
+});
+
+Route::controller(MedicoPacienteController::class)->group(function () {
+    Route::post('/medico_paciente', 'store');
+    Route::get('/medicos_pacientes/{pacId}', 'getMedicos');
 });
 
 Route::controller(ProveedorController::class)->group(function () {

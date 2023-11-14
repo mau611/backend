@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Consulta;
+use App\Models\Descuento;
 use App\Models\Factura;
 use App\Models\IngresoProducto;
 use App\Models\ProductosUso;
@@ -200,5 +201,79 @@ class EstadisticasController extends Controller
     {
         $productoUso = ProductosUso::where("id", $productoId)->with("ingresosUso")->first();
         return $productoUso;
+    }
+    public function estadisticaServicioDescuento($pacienteId, $servicioId, $estado)
+    {
+        $descuentos = null;
+        if ($pacienteId == "Todos" && $servicioId == "Todos" && $estado == "Todos") {
+            $descuentos = Descuento::with("paciente")->where("servicio", true)->get();
+        } else {
+            $descuentosAux = null;
+            if ($pacienteId != "Todos") {
+                $descuentosAux = Descuento::with("paciente")->where("paciente_id", $pacienteId)->where("servicio", true)->get();
+            } else {
+                $descuentosAux = Descuento::with("paciente")->where("servicio", true)->get();
+            }
+            if ($servicioId != "Todos") {
+                $aux = new Collection();
+                foreach ($descuentosAux as $descAux) {
+                    if ($descAux->serv_o_prod_id == $servicioId) {
+                        $aux->push($descAux);
+                    }
+                }
+                $descuentosAux = $aux;
+            }
+            if ($estado != "Todos") {
+                $aux = new Collection();
+                foreach ($descuentosAux as $descAux) {
+                    if ($descAux->activo == true && $estado == "activo") {
+                        $aux->push($descAux);
+                    }
+                    if ($descAux->activo == false && $estado == "no activo") {
+                        $aux->push($descAux);
+                    }
+                }
+                $descuentosAux = $aux;
+            }
+            $descuentos = $descuentosAux;
+        }
+        return $descuentos;
+    }
+    public function estadisticaProductoDescuento($pacienteId, $productoId, $estado)
+    {
+        $descuentos = null;
+        if ($pacienteId == "Todos" && $productoId == "Todos" && $estado == "Todos") {
+            $descuentos = Descuento::with("paciente")->where("producto", true)->get();
+        } else {
+            $descuentosAux = null;
+            if ($pacienteId != "Todos") {
+                $descuentosAux = Descuento::with("paciente")->where("paciente_id", $pacienteId)->where("producto", true)->get();
+            } else {
+                $descuentosAux = Descuento::with("paciente")->where("servicio", true)->get();
+            }
+            if ($productoId != "Todos") {
+                $aux = new Collection();
+                foreach ($descuentosAux as $descAux) {
+                    if ($descAux->serv_o_prod_id == $productoId) {
+                        $aux->push($descAux);
+                    }
+                }
+                $descuentosAux = $aux;
+            }
+            if ($estado != "Todos") {
+                $aux = new Collection();
+                foreach ($descuentosAux as $descAux) {
+                    if ($descAux->activo == true && $estado == "activo") {
+                        $aux->push($descAux);
+                    }
+                    if ($descAux->activo == false && $estado == "no activo") {
+                        $aux->push($descAux);
+                    }
+                }
+                $descuentosAux = $aux;
+            }
+            $descuentos = $descuentosAux;
+        }
+        return $descuentos;
     }
 }

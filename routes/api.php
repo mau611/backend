@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\GastoController;
 use App\Http\Controllers\Api\HistorialController;
 use App\Http\Controllers\Api\MedicoController;
 use App\Http\Controllers\Api\DiagnosticoController;
+use App\Http\Controllers\Api\DocumentoConsultasController;
 use App\Http\Controllers\Api\EstadisticasController;
 use App\Http\Controllers\Api\FichaMedicaController;
 use App\Http\Controllers\Api\TratamientoController;
@@ -30,8 +31,6 @@ use App\Http\Controllers\Api\ImportarDatosController;
 use App\Http\Controllers\Api\IngresoProductoUsoController;
 use App\Http\Controllers\Api\ProfesionalPacienteController;
 use App\Http\Controllers\Api\VentaIngresoController;
-use App\Models\DocumentoConsulta;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
@@ -108,9 +107,15 @@ Route::controller(ConsultorioController::class)->group(function () {
     Route::delete('/consultorio/{id}', 'destroy');
 });
 
-Route::controller(DocumentoConsulta::class)->group(function () {
+Route::controller(DocumentoConsultasController::class)->group(function () {
     Route::get('/archivos', 'index');
     Route::post('/archivo', 'store');
+    Route::post('/indicaciones_medicas/{pacId}', 'indicacionesMedicas');
+    Route::post('/fotos_control/{pacId}', 'fotosControl');
+    Route::post('/examenes_medicos/{pacId}', 'examenesMedicos');
+    Route::post('/consentimientos_informados/{pacId}', 'consentimientosInformados');
+    Route::post('/otros_documentos/{pacId}', 'otrosDocumentos');
+    Route::get('/obtener_archivo/{fileName}/{folderName}/{pacId}', 'obtenerArchivo');
     Route::get('/archivo/{id}', 'show');
     Route::put('/archivo/{id}', 'update');
     Route::delete('/archivo/{id}', 'destroy');

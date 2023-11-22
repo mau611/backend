@@ -12,7 +12,7 @@ class Paciente extends Model
 
     public function citas()
     {
-        return $this->hasMany(Consulta::class)->with("historias")->with('consultorio')->with("facturas");
+        return $this->hasMany(Consulta::class)->with("historias")->with('consultorio')->with("facturas")->with("documentos")->with("indicacionesMedicas")->with("fotosControl")->with("examenesMedicos")->with("consentimientosInformados");
     }
     public function bonos()
     {

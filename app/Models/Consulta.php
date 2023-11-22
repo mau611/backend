@@ -38,4 +38,24 @@ class Consulta extends Model
     {
         return $this->hasMany(Historial::class);
     }
+    public function documentos()
+    {
+        return $this->hasMany(DocumentoConsulta::class);
+    }
+    public function indicacionesMedicas()
+    {
+        return $this->hasMany(IndicacionesMedicas::class);
+    }
+    public function fotosControl()
+    {
+        return $this->hasMany(FotosControl::class);
+    }
+    public function examenesMedicos()
+    {
+        return $this->hasMany(ExamenesMedicos::class);
+    }
+    public function consentimientosInformados()
+    {
+        return $this->hasMany(ConsentimientosInformados::class);
+    }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('documento_consultas', function (Blueprint $table) {
+        Schema::create('consentimientos_informados', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
             $table->unsignedBigInteger("consulta_id");
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documento_cunsultas');
+        Schema::dropIfExists('consentimientos_informados');
     }
 };

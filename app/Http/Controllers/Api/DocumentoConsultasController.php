@@ -49,7 +49,7 @@ class DocumentoConsultasController extends Controller
         ]);
 
         $bucketName = config('filesystems.disks.s3.bucket');
-        $folderPath = 'scz/indicaciones_medicas/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
+        $folderPath = 'cb/indicaciones_medicas/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
         $image = $request->file('img'); // Obtener la imagen del formulario o de la solicitud
         $imageName = time() . '.' . $image->getClientOriginalExtension(); // Nombre que tendrá la imagen en S3
         try {
@@ -82,7 +82,7 @@ class DocumentoConsultasController extends Controller
         ]);
 
         $bucketName = config('filesystems.disks.s3.bucket');
-        $folderPath = 'scz/fotos_control/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
+        $folderPath = 'cb/fotos_control/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
         $images = $request->file('images'); // Obtener la imagen del formulario o de la solicitud
         try {
             foreach ($images as $image) {
@@ -118,7 +118,7 @@ class DocumentoConsultasController extends Controller
         ]);
 
         $bucketName = config('filesystems.disks.s3.bucket');
-        $folderPath = 'scz/examenes_medicos/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
+        $folderPath = 'cb/examenes_medicos/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
         $image = $request->file('img'); // Obtener la imagen del formulario o de la solicitud
         $imageName = time() . '.' . $image->getClientOriginalExtension(); // Nombre que tendrá la imagen en S3
         try {
@@ -151,7 +151,7 @@ class DocumentoConsultasController extends Controller
         ]);
 
         $bucketName = config('filesystems.disks.s3.bucket');
-        $folderPath = 'scz/consentimientos_informados/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
+        $folderPath = 'cb/consentimientos_informados/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
         $image = $request->file('img'); // Obtener la imagen del formulario o de la solicitud
         $imageName = $image->getClientOriginalName(); // Nombre que tendrá la imagen en S3
         try {
@@ -184,7 +184,7 @@ class DocumentoConsultasController extends Controller
         ]);
 
         $bucketName = config('filesystems.disks.s3.bucket');
-        $folderPath = 'scz/otros_documentos/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
+        $folderPath = 'cb/otros_documentos/' . $pacId; // Ruta dentro del bucket donde guardarás las imágenes
         $image = $request->file('img'); // Obtener la imagen del formulario o de la solicitud
         $imageName = $image->getClientOriginalName(); // Nombre que tendrá la imagen en S3
         try {
@@ -207,8 +207,8 @@ class DocumentoConsultasController extends Controller
 
     public function obtenerArchivo($fileName, $folderName, $pacId)
     {
-        $urlTemp = Storage::disk('s3')->temporaryUrl('scz/' . $folderName . '/' . $pacId . '/' . $fileName, now()->addMinutes(10));
-        $url = Storage::disk('s3')->url('scz/' . $folderName . '/' . $pacId . '/' . $fileName);
+        $urlTemp = Storage::disk('s3')->temporaryUrl('cb/' . $folderName . '/' . $pacId . '/' . $fileName, now()->addMinutes(10));
+        $url = Storage::disk('s3')->url('cb/' . $folderName . '/' . $pacId . '/' . $fileName);
 
         return response()->json(['url' => $url, 'urlTemp' => $urlTemp]);
     }

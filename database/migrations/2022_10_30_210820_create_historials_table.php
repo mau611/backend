@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->json("historia");
             $table->unsignedBigInteger("consulta_id");
+            $table->unsignedBigInteger("user_id");
             $table->foreign("consulta_id")->references("id")->on("consultas")->onDelete("cascade");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }

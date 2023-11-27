@@ -286,8 +286,9 @@ Route::controller(EstadisticasController::class)->group(function () {
     Route::get('/consultas/{pacienteId}/{citaId}/{desde}/{hasta}', 'estadisticaConsultas');
     Route::get('/estadisticas_ventas/{pacienteId}/{desde}/{hasta}', 'estadisticaVentas');
     Route::get('/estadisticas_consumo_stock/{productoId}', 'estadisticaConsumoStock');
-    Route::get('/estadisticas_descuentos_servicios/{pacienteId}/{servicioId}/{estado}', 'estadisticaServicioDescuento');
+    Route::get('/estadisticas_descuentos_servicios/{pacienteId}/{servicioId}/{estado}/{autorizado}', 'estadisticaServicioDescuento');
     Route::get('/estadisticas_descuentos_productos/{pacienteId}/{productoId}/{estado}', 'estadisticaProductoDescuento');
+    Route::get('/estadistica_agendado_por/{desde}', 'estadisticaAgendadoPor');
 });
 
 Route::controller(FichaMedicaController::class)->group(function () {

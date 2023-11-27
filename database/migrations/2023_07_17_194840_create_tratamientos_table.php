@@ -18,7 +18,9 @@ return new class extends Migration
             $table->longText("tratamiento");
             $table->date("fecha");
             $table->unsignedBigInteger("diagnostico_id");
+            $table->unsignedBigInteger("user_id");
             $table->foreign("diagnostico_id")->references("id")->on("diagnosticos")->onDelete("cascade");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }

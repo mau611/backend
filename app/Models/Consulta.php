@@ -30,13 +30,13 @@ class Consulta extends Model
     {
         return $this->hasMany(Factura::class)->with('conceptos');
     }
-    public function quienAgendo()
+    public function profesional()
     {
         return $this->belongsTo(Profesional::class);
     }
     public function historias()
     {
-        return $this->hasMany(Historial::class);
+        return $this->hasMany(Historial::class)->with('user');
     }
     public function documentos()
     {

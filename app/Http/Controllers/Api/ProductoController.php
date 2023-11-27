@@ -20,6 +20,7 @@ class ProductoController extends Controller
         $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
+        $producto->cantidad_minima = $request->cantidad_minima;
         $producto->proveedor_id = $request->proveedor;
         $producto->save();
         $ingreso = new IngresoProducto();
@@ -44,6 +45,7 @@ class ProductoController extends Controller
         $producto = Producto::findOrFail($request->id);
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
+        $producto->cantidad_minima = $request->cantidad_minima;
         $producto->proveedor_id = $request->proveedor_id;
         $producto->save();
         return $producto;

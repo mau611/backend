@@ -20,6 +20,7 @@ class HistorialController extends Controller
         $historia = new Historial;
         $historia->historia = json_encode($request->historia);
         $historia->consulta_id = $request->consulta_id;
+        $historia->user_id = $request->user_id;
         $historia->save();
         return "exito al guardar";
     }
@@ -35,6 +36,7 @@ class HistorialController extends Controller
         $historia = Historial::findOrFail();
         $historia->nombre = $request->nombre;
         $historia->consulta_id = $request->consulta_id;
+        $historia->user_id = $request->user_id;
         $historia->save();
         return $historia;
     }

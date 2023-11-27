@@ -31,6 +31,7 @@ class TratamientoController extends Controller
         $tratamiento->tratamiento = $request->tratamiento;
         $tratamiento->fecha = date('Y-m-d');
         $tratamiento->diagnostico_id = $request->diagnostico_id;
+        $tratamiento->user_id = $request->user_id;
         $tratamiento->save();
     }
 

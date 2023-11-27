@@ -202,17 +202,17 @@ class EstadisticasController extends Controller
         $productoUso = ProductosUso::where("id", $productoId)->with("ingresosUso")->first();
         return $productoUso;
     }
-    public function estadisticaServicioDescuento($pacienteId, $servicioId, $estado)
+    public function estadisticaServicioDescuento($pacienteId, $servicioId, $estado, $autorizado)
     {
         $descuentos = null;
         if ($pacienteId == "Todos" && $servicioId == "Todos" && $estado == "Todos") {
-            $descuentos = Descuento::with("paciente")->where("servicio", true)->get();
+            $descuentos =  $autorizado == 0 ? Descuento::with("paciente")->where("servicio", true)->get() : Descuento::with("paciente")->where([["servicio", 1], ['descripcion', 'LIKE', '%' . $autorizado . '%']])->get();
         } else {
             $descuentosAux = null;
             if ($pacienteId != "Todos") {
-                $descuentosAux = Descuento::with("paciente")->where("paciente_id", $pacienteId)->where("servicio", true)->get();
+                $descuentosAux = $autorizado == 0 ? Descuento::with("paciente")->where("paciente_id", $pacienteId)->where("servicio", true)->get() : Descuento::with("paciente")->where("paciente_id", $pacienteId)->where([["servicio", 1], ['descripcion', 'LIKE', '%' . $autorizado . '%']])->get();
             } else {
-                $descuentosAux = Descuento::with("paciente")->where("servicio", true)->get();
+                $descuentosAux = $autorizado == 0 ? Descuento::with("paciente")->where("servicio", true)->get() : Descuento::with("paciente")->where([["servicio", 1], ['descripcion', 'LIKE', '%' . $autorizado . '%']])->get();
             }
             if ($servicioId != "Todos") {
                 $aux = new Collection();
@@ -275,5 +275,15 @@ class EstadisticasController extends Controller
             $descuentos = $descuentosAux;
         }
         return $descuentos;
+    }
+    public function estadisticaAgendadoPor($desde)
+    {
+        $consultas = Consulta::where("start", "LIKE", "%" . $desde . "%")->with("paciente")
+            ->with("tipoConsulta")
+            ->with("consultorio")
+            ->with("estadoCita")
+            ->with("profesional")
+            ->get();
+        return $consultas;
     }
 }

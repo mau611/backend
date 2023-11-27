@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'descripcion', 'proveedor_id'];
+    protected $fillable = ['nombre', 'descripcion', 'cantidad_minima', 'proveedor_id'];
 
-    public function ingresos(){
+    public function ingresos()
+    {
         return $this->hasMany(IngresoProducto::class);
     }
 
-    public function proveedor(){
+    public function proveedor()
+    {
         return $this->belongsTo(Proveedor::class);
     }
 }

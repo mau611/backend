@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("Nombre");
             $table->longText("descripcion");
+            $table->integer("cantidad_minima");
             $table->unsignedBigInteger("proveedor_id");
             $table->foreign("proveedor_id")->references("id")->on("proveedors")->onDelete("cascade");
             $table->timestamps();
